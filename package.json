@@ -6,8 +6,17 @@
     "react-scripts": "1.1.4"
   },
   "dependencies": {
+    "escape-string-regexp": "^1.0.5",
+    "form-serialize": "^0.7.2",
+    "prop-types": "^15.6.1",
     "react": "^16.4.0",
-    "react-dom": "^16.4.0"
+    "react-autocomplete": "^1.8.1",
+    "react-dom": "^16.4.0",
+    "react-icons": "^2.2.7",
+    "react-router-dom": "^4.2.2",
+    "react-spinners": "^0.3.2",
+    "reactstrap": "^6.1.0",
+    "sort-by": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
