@@ -334,33 +334,55 @@ class BookShelf extends Component {
     const nowRead = this.state.books.filter((book) => (book.shelf === "currentlyReading"))
     const futureRead = this.state.books.filter((book) => (book.shelf === "wantToRead"))
     
+    const bookshelves = [ 
+      {
+        "books": nowRead,
+        "shelf": "Reading",
+        "className": "bookshelf-title col s4 m2 offset-m1"
+      },
+      {
+        "books": futureRead,
+        "shelf": "To Read",
+        "className": "bookshelf-title col s4 offset-s4 m2 offset-m5"
+      },
+      {
+        "books": pastRead,
+        "shelf": "Read",
+        "className": "bookshelf-title col s4 offset-s8 m2 offset-m9"
+       }
+    ]
+
     return (
-      <div className="container">
-        <div className="progress">
-          <div className="indeterminate"></div>
-        </div>
-        <div className="row">
-          <div className="col s12">
-            <ul className="tabs">
-              <li className="tab col s3">
-                <a href="#reading">Reading</a>
-              </li>
-              <li className="tab col s3">
-                <a href="#wanttoread">Want To Read</a>
-              </li>
-              <li className="tab col s3">
-                <a href="#read">Read</a>
-              </li>
-            </ul>
+      <div className="app">
+        <div className="container">
+          <div className="progress">
+            <div className="indeterminate"></div>
           </div>
-          <div id="reading" className="col s12">
-            {nowRead.map((book) => (
-              <div className="col s4 m3 l2">
-                <Book book={book} />
+        </div>
+        {bookshelves.map((bookshelf, i) => (
+          <div key={i} className="bookshelf">
+            <div className="row">
+              <span className={bookshelf.className}>{bookshelf.shelf}</span>
+            </div>
+            <div className="grey darken-4">
+              <div className="container">
+                <div className="row">
+                  <div className="col s12">
+                    <div className="bookshelf-books">
+                      <ol className="books-grid">
+                        {bookshelf.books.map((book) => (
+                          <li>
+                            <Book book={book} />
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     )
   }
