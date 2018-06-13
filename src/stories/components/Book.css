@@ -210,8 +210,39 @@
   font-weight: bold;
 }
 
-.book-authors {
+.modal .book-title {
+  font-size: 1.5rem;
+  padding-right: 40px;
+  margin-bottom: 20px;
+}
+
+.book-authors,
+.book-info {
   color: #9e9e9e;
+}
+
+.modal-header .modal-close {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+}
+
+.modal .book-info {
+  text-align: left;
+  padding-bottom: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;  
+}
+
+.book-rating,
+.book-pagecount {
+  margin: 10px 0;
+}
+
+.book-description {
+  clear: both;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .book-top {
@@ -237,6 +268,12 @@
   cursor: pointer;
 }
 
+.modal .book-shelf-changer {
+  position: static;
+  float: left;
+  margin-top: 5px;
+}
+
 .book-shelf-changer.active {
   background: #ee6e73;
 }
@@ -246,6 +283,11 @@
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+.book-shelf-changer-text {
+  margin: 7px;
+  display: inline-block;
 }
 
 /* book cover */
@@ -258,6 +300,11 @@
   width: 128px;
   height: 180px;
   cursor: pointer;
+}
+
+.modal .book-cover {
+  float: left;
+  margin: 0 20px 20px 0;
 }
 
 .book-cover-title {
@@ -279,6 +326,78 @@
   cursor: pointer;
 }
 
+.modal .book-favorite {
+  position: static;
+  float: left;
+  margin: 5px 20px 0 0;
+}
+
 .book-favorite.active {
   background-image: url('../../icons/star.svg');
+}
+
+.modal .book-preview {
+  float: left;
+  margin: 0 20px 20px 0;
+}
+
+.book-stars {
+  display: inline-block;
+  margin-right: 10px;
+  color: gold;
+}
+
+.star-border {
+  width: 24px;
+  height: 20px;
+  background-image: url('../../icons/star-border.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+  display: inline-block;
+}
+
+.star-half {
+  width: 24px;
+  height: 20px;
+  background-image: url('../../icons/star-half.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+  display: inline-block;
+}
+
+.star-full {
+  width: 24px;
+  height: 20px;
+  background-image: url('../../icons/star.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+  display: inline-block;
+}
+
+.modal .modal-content {
+  padding-bottom: 0;
+}
+
+.modal .modal-footer {
+  text-align: center;
+  padding-bottom: 20px;
+  color: #9e9e9e;
+}
+
+.modal .modal-footer .book-rating {
+  margin: 0;
+  display: block;
+}
+
+.modal .modal-footer .book-stars {
+  margin: 0;
+  color: #9e9e9e;
+}
+
+.modal .modal-footer a {
+  display: block;
+  color: #9e9e9e;
 }

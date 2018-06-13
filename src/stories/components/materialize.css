@@ -3,6 +3,10 @@
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
+.page {
+  width: 100%;
+  height: 100%;
+}
 
 .materialize-red {
   background-color: #e51c23 !important
@@ -8841,4 +8845,14 @@ input[type=range].focused:focus:not(.active)::-ms-thumb {
     text-align: center;
     margin-top: 1.2rem
   }
+}
+
+
+
+
+
+
+/* Temporarily display for Storybook */
+.modal {
+  display: block;
 }

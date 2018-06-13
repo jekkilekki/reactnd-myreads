@@ -69,7 +69,12 @@ storiesOf('Button', module)
 storiesOf('The App', module)
   .add('Navigation', () => <Navigation />)
   .add('Single book', () => <Book book={book}/>)
-  .add('Book Details', () => <BookDetails book={book}/>)
+  .add('Book Details', () => <BookDetails book={book} 
+                                          publisher={"Packt Publishing"} 
+                                          categories={["Computers"]}
+                                          averageRating={4.5}
+                                          ratingsCount={300}
+    />)
   .add('Bookshelf', () => <BookShelf />)
   .add('Udacity Bookshelf', () => <UBookShelf />)
   
