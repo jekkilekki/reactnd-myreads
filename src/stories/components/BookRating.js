@@ -9,121 +9,121 @@ class BookRating extends Component {
     if (rating === 5) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
         </div>
       )
     }
     else if (rating > 4.5) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star_half</span>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star_half</i>
         </div>
       )
     }
     else if (rating > 4) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star_border</span>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star_border</i>
         </div>
       )
     }
     else if (rating > 3.5) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star_half</span>
-          <span className="material-icons">star_border</span>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star_half</i>
+          <i className="material-icons">star_border</i>
         </div>
       )
     }
     else if (rating > 3) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
         </div>
       )
     }
     else if (rating > 2.5) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star_half</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star_half</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
         </div>
       )
     }
     else if (rating > 2) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
         </div>
       )
     }
     else if (rating > 1.5) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star_half</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star_half</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
         </div>
       )
     }
     else if (rating > 1) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
+          <i className="material-icons">star</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
         </div>
       )
     }
     if (rating > 0.5 ) {
       return(
         <div className="book-stars">
-          <span className="material-icons">star_half</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
+          <i className="material-icons">star_half</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
         </div>
       )
     }
     else {
       return(
         <div className="book-stars">
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
-          <span className="material-icons">star_border</span>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
+          <i className="material-icons">star_border</i>
         </div>
       )
     }

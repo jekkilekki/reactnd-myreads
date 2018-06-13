@@ -221,6 +221,11 @@
   color: #9e9e9e;
 }
 
+.modal .book-authors {
+  color: #616161;
+  font-size: 1rem;
+}
+
 .modal-header .modal-close {
   position: absolute;
   top: 22px;
@@ -229,14 +234,23 @@
 
 .modal .book-info {
   text-align: left;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
   margin-left: 20px;
-  margin-bottom: 20px;  
+  margin-bottom: 20px; 
+  padding-left: 130px; 
 }
 
-.book-rating,
-.book-pagecount {
-  margin: 10px 0;
+.modal .book-rating {
+  margin: 5px 0 0;
+}
+
+.modal .book-pagecount {
+  margin: 10px 0 15px;
+}
+
+.modal .book-rating-number {
+  position: relative;
+  top: -5px;
 }
 
 .book-description {
@@ -330,10 +344,15 @@
   position: static;
   float: left;
   margin: 5px 20px 0 0;
+  background-size: 30px;
 }
 
 .book-favorite.active {
   background-image: url('../../icons/star.svg');
+}
+
+.modal .book-info-footer {
+  margin-top: 15px;
 }
 
 .modal .book-preview {
@@ -383,7 +402,7 @@
 
 .modal .modal-footer {
   text-align: center;
-  padding-bottom: 20px;
+  margin: 10px 0;
   color: #9e9e9e;
 }
 
@@ -394,10 +413,11 @@
 
 .modal .modal-footer .book-stars {
   margin: 0;
-  color: #9e9e9e;
+  color: #bdbdbd;
 }
 
 .modal .modal-footer a {
-  display: block;
+  position: relative;
+  top: -5px;
   color: #9e9e9e;
 }
