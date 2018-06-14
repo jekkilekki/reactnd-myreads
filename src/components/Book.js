@@ -1,7 +1,19 @@
 import React, { Component } from 'react'
+import { Dropdown } from 'react-materialize'
 import BookDetails from './BookDetails'
+import ShelfSelect from './ShelfSelect'
 
 class Book extends Component {
+  favorite() {
+    console.log("Favorited")
+  }
+
+  dropDown(book) {
+    console.log("Dropping down")
+    var dropdown = document.getElementById(`dropdown-${book.id}`)
+    // dropdown.material_select();
+  }
+
   render() {
     const { book } = this.props
     return (
@@ -14,16 +26,8 @@ class Book extends Component {
                 height: 200, 
                 background: `url(${book.imageLinks.thumbnail})` 
               }}></div>
-          <div className="book-favorite"></div>
-          <div className="book-shelf-changer">
-            <select>
-              <option value="none" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
-          </div>
+          <div className="book-favorite" onClick={() => this.favorite(book.id)}></div>
+          <ShelfSelect book={book} />
         </div>
         <div className="book-info">
           <div className="book-title white-text">{book.title}</div>

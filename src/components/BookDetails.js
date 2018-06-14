@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'react-materialize'
 import BookRating from './BookRating'
+import ShelfSelect from './ShelfSelect';
 
 class BookDetails extends Component {
   getDate(string) {
@@ -83,15 +84,7 @@ class BookDetails extends Component {
               <a className="book-preview waves-effect waves-light btn" 
                 href={book.previewLink}>Preview</a>
               <div className="book-favorite"></div>
-              <div className="book-shelf-changer">
-                <select>
-                  <option value="none" disabled>Move to...</option>
-                  <option value="currentlyReading">Currently Reading</option>
-                  <option value="wantToRead">Want to Read</option>
-                  <option value="read">Read</option>
-                  <option value="none">None</option>
-                </select>
-              </div>
+              <ShelfSelect book={book} />
               <span className="book-shelf-changer-text">Move to...</span>
             </footer>
           </div>

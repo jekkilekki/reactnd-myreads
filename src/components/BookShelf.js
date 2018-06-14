@@ -90,14 +90,17 @@ class BookShelf extends Component {
                 <div className="row">
                   <div className="col s12">
                     <div className="bookshelf-books">
-                      <Carousel className="books-grid"
-                          options={{dist: 0, numVisible: -1}}>
+                      {/* <Carousel className="books-grid"
+                          options={{dist: 0, numVisible: -1}}> */}
+                      <ul className="books-grid">
                         {bookshelf.books.map((book) => (
-                          <div key={book.id}>
+                          // <div key={book.id}>
+                          <li key={book.id}>
                             <Book book={book} />
-                          </div>
+                          </li>
                         ))}
-                      </Carousel>
+                      </ul>
+                      {/* </Carousel> */}
                     </div>
                   </div>
                 </div>

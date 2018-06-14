@@ -36,3 +36,18 @@ body {
 body, .app {
   background: white;
 }
+
+/* Custom Materialize styles */
+nav .brand-logo {
+  transform: translateX(-50%);
+}
+
+nav .search-icon {
+  position: absolute;
+  right: 10px;
+  color: white;
+}
+
+.main-navigation {
+  margin-bottom: 20px;
+}
