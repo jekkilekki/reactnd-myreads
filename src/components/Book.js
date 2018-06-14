@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import './materialize.css'
 import BookDetails from './BookDetails'
 
 class Book extends Component {
@@ -35,7 +34,6 @@ class Book extends Component {
             <span className="book-date">{book.publishedDate.substr(0,4)}</span>
           </div>  
         </div>
-
         <BookDetails book={book}/>
       </div>
     )

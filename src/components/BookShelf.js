@@ -61,10 +61,6 @@ class BookShelf extends Component {
       .then(() => {
         console.log("Book state:", this.state.books)
         console.log("Book animations", this.state.bookAnimations)
-        var elems = document.querySelectorAll('.modal');
-        var options = {}
-        // var instances = M.Modal.init(elems, options)
-        console.log(elems)
       })
       .catch((error) => console.log(error))
   }
