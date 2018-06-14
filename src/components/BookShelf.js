@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Carousel } from 'react-materialize'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 import Loading from './Loading'
@@ -80,7 +81,7 @@ class BookShelf extends Component {
           <Loading />
         }
         {this.state.bookshelves.map((bookshelf, i) => (
-          <div key={i} className="bookshelf">
+          <div key={i} className="bookshelf animated bounceInUp">
             <div className="row">
               <span className={bookshelf.className}>{bookshelf.shelf}</span>
             </div>
@@ -89,13 +90,14 @@ class BookShelf extends Component {
                 <div className="row">
                   <div className="col s12">
                     <div className="bookshelf-books">
-                      <ol className="books-grid">
+                      <Carousel className="books-grid"
+                          options={{dist: 0, numVisible: -1}}>
                         {bookshelf.books.map((book) => (
-                          <li key={book.id}>
+                          <div key={book.id}>
                             <Book book={book} />
-                          </li>
+                          </div>
                         ))}
-                      </ol>
+                      </Carousel>
                     </div>
                   </div>
                 </div>

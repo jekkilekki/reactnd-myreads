@@ -16,16 +16,28 @@ class BookDetails extends Component {
     return (
       <Modal id={`modal-${book.id}`} 
             className="modal" 
+            fixedFooter
             header={book.title}
-            trigger={<Button>Book Details</Button>}>
-        <div className="modal-content">
+            actions={
+              <div className="">
+                <a href={book.previewLink} className="waves-effect waves-green center">
+                  <BookRating />
+                  <div className="book-rating-link">
+                    Rate this book
+                  </div>
+                </a>
+                <i className="modal-close material-icons">close</i>
+              </div>
+            }
+            trigger={<Button className="modal-trigger">Book Details</Button>}>
+        <div className="modal-info">
           <div className="modal-header">
             <div className="modal-close">
               <i className="material-icons">close</i>
             </div>
             {/* <h4 className="book-title">{book.title}</h4> */}
             { this.props.subtitle &&
-              <span className="book-subtitle">{book.subtitle}</span>
+              <h5 className="book-subtitle">{book.subtitle}</h5>
             }
           </div>
           <div className="book-cover" 
@@ -86,14 +98,6 @@ class BookDetails extends Component {
           <div className="book-description">
             <p>{book.description}</p>
           </div>
-        </div>
-        <div className="modal-footer">
-          <a href={book.previewLink} className="waves-effect waves-green center">
-            <BookRating />
-            <div className="book-rating-link">
-              Rate this book
-            </div>
-          </a>
         </div>
       </Modal>
     )

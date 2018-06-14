@@ -10,8 +10,8 @@ class Book extends Component {
         <div className="book-top">
           <div className="book-cover hoverable" 
               style={{ 
-                width: 128, 
-                height: 180, 
+                width: 140, 
+                height: 200, 
                 background: `url(${book.imageLinks.thumbnail})` 
               }}></div>
           <div className="book-favorite"></div>
