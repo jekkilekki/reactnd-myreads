@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Papa from 'papaparse'
 import './components/App.css';
 import Navigation from './components/Navigation'
 import BookShelf from './components/BookShelf'
@@ -16,6 +17,18 @@ class App extends Component {
     this.setState(prevState => ({
       searchOpen: !prevState.searchOpen
     }))
+  }
+
+  componentDidMount() {
+    const searchTerms = Papa.parse('./components/SEARCH_TERMS.csv', {
+      complete: (results) => {
+        this.setState({
+          searchTerms: results.data
+        })
+      }
+    })
+    
+    console.log( this.state.searchTerms )
   }
 
   render() {
