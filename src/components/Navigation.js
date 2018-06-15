@@ -1,27 +1,29 @@
-import React from 'react'
-import { Input, Icon, Autocomplete, Row } from 'react-materialize'
-// import Autocomplete from 'react-materialize/lib/Autocomplete';
+import React, { Component } from 'react'
+import SearchBar from './SearchBar'
 
-const Navigation = (props) => {
-  return (
-    <header className="app-header">
-      <div className="main-navigation navbar-fixed">
-        <nav className="teal">
-          <div className="nav-wrapper container">
-            <a href="/" className="brand-logo centered">MyReads</a>
-            <i className="material-icons search-icon" style={{textAlign: "right"}}>search</i>
-            <form>
-              {/* <Input s={12} id="search" type="search" label="Search"> */}
-                {/* <Icon>search</Icon> */}
-              {/* </Input> */}
-              {/* <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
-              <i className="material-icons">close</i> */}
-            </form>
-          </div>
-        </nav>
-      </div>
-    </header>
-  )
+class Navigation extends Component {
+  toggleSearch() {
+    this.props.onSearch()
+  }
+
+  render() {
+    const navbarClass = this.props.search === false ? 'teal' : 'white'
+    return (
+      <header className="app-header">
+        <div className="main-navigation navbar-fixed">
+          <nav className={navbarClass}>
+            <div className="nav-wrapper container">
+              <a href="/" className="brand-logo centered">MyReads</a>
+              <SearchBar 
+                searchOpen={this.props.search}
+                toggleSearch={() => this.toggleSearch()}
+                onSubmit={() => this.submitSearch()} />
+            </div>
+          </nav>
+        </div>
+      </header>
+    )
+  }
 }
  
-export default Navigation;
+export default Navigation

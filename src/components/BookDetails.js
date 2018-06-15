@@ -21,7 +21,8 @@ class BookDetails extends Component {
             header={book.title}
             actions={
               <div className="">
-                <a href={book.previewLink} className="waves-effect waves-green center">
+                <a href={`https://books.google.com/books?op=lookup&id=${book.id}`} 
+                    className="waves-effect waves-teal center">
                   <BookRating />
                   <div className="book-rating-link">
                     Rate this book
@@ -31,16 +32,19 @@ class BookDetails extends Component {
               </div>
             }
             trigger={<Button className="modal-trigger">Book Details</Button>}>
+
         <div className="modal-info">
+          
           <div className="modal-header">
             <div className="modal-close">
               <i className="material-icons">close</i>
             </div>
             {/* <h4 className="book-title">{book.title}</h4> */}
             { this.props.subtitle &&
-              <h5 className="book-subtitle">{book.subtitle}</h5>
+              <h6 className="book-subtitle">{this.props.subtitle}</h6>
             }
           </div>
+
           <div className="book-cover" 
               style={{
                 width: 128,
@@ -48,6 +52,7 @@ class BookDetails extends Component {
                 background: `url(${book.imageLinks.thumbnail})`
               }}
           ></div>
+
           <div className="book-info">
             <div className="book-authors">by {
               book.authors.map((author, i, arr) => (
@@ -56,12 +61,12 @@ class BookDetails extends Component {
                   <span key={i}>{author}, </span>
               ))
             }</div>
-            { this.props.averageRating && 
-              <BookRating average={this.props.averageRating} count={this.props.ratingsCount} />
+            { book.averageRating && 
+              <BookRating average={book.averageRating} count={book.ratingsCount} />
             }
             <div className="book-publisher">
-              { this.props.publisher && 
-                <span>{this.props.publisher}, </span>
+              { book.publisher && 
+                <span>{book.publisher}, </span>
               }
               <span>{book.publishedDate}</span>
             </div>
@@ -71,35 +76,33 @@ class BookDetails extends Component {
             <div className="book-pages">
               <span>{book.pageCount} pages</span>
             </div>
-            { this.props.categories && 
+            { book.categories && 
               <div className="book-categories">{
-                this.props.categories.map((category, i, arr) => (
+                book.categories.map((category, i, arr) => (
                   arr.length - 1 === i ? 
                     <span key={i}>{category}</span> : 
                     <span key={i}>{category}, </span>
                 ))
               }</div>
             }
+
             <footer className="book-info-footer">
               <a className="book-preview waves-effect waves-light btn" 
                 href={book.previewLink}>Preview</a>
-              <div className="book-favorite"></div>
+              <i className="book-favorite material-icons">star_border</i>
               <ShelfSelect book={book} />
               <span className="book-shelf-changer-text">Move to...</span>
             </footer>
           </div>
+
           <div className="book-description">
             <p>{book.description}</p>
           </div>
+
         </div>
       </Modal>
     )
   }
 }
-
-// document.addEventListener('DOMContentLoaded', function() {
-//   var elems = document.querySelectorAll('.modal');
-//   var instances = M.Modal.init(elems, options);
-// });
  
 export default BookDetails

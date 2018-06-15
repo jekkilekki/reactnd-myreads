@@ -22,6 +22,10 @@ class BookShelf extends Component {
         books: response,
       })
 
+      this.state.books.map((book) => (
+        book.favorited = false
+      ))
+
       const pastRead = this.state.books.filter((book) => (
         book.shelf === "read"
       ))
@@ -74,6 +78,13 @@ class BookShelf extends Component {
 
   }
 
+  toggleFavorite() {
+    var favorite = { ...this.state.someProperty }
+    favorite.favorited = true;
+    this.setState({ favorite })
+    console.log(this)
+  }
+
   render() {
     return (
       <div className="app">
@@ -96,7 +107,12 @@ class BookShelf extends Component {
                         {bookshelf.books.map((book) => (
                           // <div key={book.id}>
                           <li key={book.id}>
-                            <Book book={book} />
+                            <Book book={book}
+                                  // subtitle={book.subtitle}
+                                  // averageRating={book.averageRating}
+                                  // ratingsCount={book.ratingsCount}
+                                  // categories={book.categories} 
+                                  onFavorited={() => this.toggleFavorite()}/>
                           </li>
                         ))}
                       </ul>

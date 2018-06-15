@@ -46,8 +46,14 @@ nav .search-icon {
   position: absolute;
   right: 10px;
   color: white;
+  cursor: pointer;
+  z-index: 100;
 }
 
 .main-navigation {
   margin-bottom: 20px;
+}
+
+.main-navigation nav {
+  transition: 0.5s;
 }

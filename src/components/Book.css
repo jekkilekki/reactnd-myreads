@@ -82,13 +82,13 @@
 }
 
 .bookshelf {
-  padding: 0 10px 0px;
+  padding: 0 0px 0px;
   margin-bottom: 40px;
 }
 
 @media (min-width: 600px) {
   .bookshelf {
-    padding: 0 20px 0px;
+    padding: 0 0px 0px;
   }
 }
 
@@ -182,7 +182,7 @@
 }
 
 .books-grid li {
-  /* padding: 10px 15px; */
+  padding: 10px 10px 0;
   text-align: left;
 }
 
@@ -196,10 +196,10 @@
   margin: 10px 0;
 }
 
-.book.active,
-.book:active,
-.book:focus,
-.book:hover {
+.book-cover.active,
+.book-cover:active,
+.book-cover:focus,
+.book-cover:hover {
   box-shadow: 0px 0px 15px #ee6e73;
 }
 
@@ -226,6 +226,11 @@
 .modal .book-title {
   font-size: 1.5rem;
   padding-right: 40px;
+  margin-bottom: 20px;
+}
+
+.modal .book-subtitle {
+  margin-top: -10px;
   margin-bottom: 20px;
 }
 
@@ -341,21 +346,17 @@
 
 .book-favorite {
   position: absolute;
-  right: -15px;
-  top: 5px;
-  width: 24px;
-  height: 24px;
-  background-image: url('../icons/star-border.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 30px;
+  right: -17px;
+  top: -11px;
   cursor: pointer;
+  font-size: 2rem;
+  color: gold;
 }
 
 .modal .book-favorite {
   position: static;
   float: left;
-  margin: 5px 20px 0 0;
+  margin: 2px 20px 0 0;
   background-size: 30px;
 }
 
@@ -419,6 +420,10 @@
 
 .modal .modal-content {
   padding-bottom: 0;
+}
+
+.modal .book-categories {
+  text-transform: capitalize;
 }
 
 .modal .modal-footer {

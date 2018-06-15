@@ -2,10 +2,20 @@ import React, { Component } from 'react'
 import { Dropdown } from 'react-materialize'
 import BookDetails from './BookDetails'
 import ShelfSelect from './ShelfSelect'
+import Favorite from './Favorite'
 
 class Book extends Component {
-  favorite() {
-    console.log("Favorited")
+  constructor(props) {
+    super(props)
+    this.state = {
+      props
+    }
+    console.log( "this props", this.state )
+  }
+
+  favorite(book) {
+    console.log("Favorited", this)
+    this.props.onFavorited(book)
   }
 
   dropDown(book) {
@@ -17,7 +27,7 @@ class Book extends Component {
   render() {
     const { book } = this.props
     return (
-      <div className="book" >
+      <div id={`book-${book.id}`} className="book" >
 
         <div className="book-top">
           <div className="book-cover hoverable" 
@@ -26,7 +36,9 @@ class Book extends Component {
                 height: 200, 
                 background: `url(${book.imageLinks.thumbnail})` 
               }}></div>
-          <div className="book-favorite" onClick={() => this.favorite(book.id)}></div>
+          {/* <i className="book-favorite material-icons" 
+              onClick={() => this.favorite(book)}>star_border</i> */}
+          <Favorite onClick={() => this.favorite(book)}/>
           <ShelfSelect book={book} />
         </div>
         <div className="book-info">
@@ -38,7 +50,12 @@ class Book extends Component {
             <span className="book-date">{book.publishedDate.substr(0,4)}</span>
           </div>  
         </div>
-        <BookDetails book={book}/>
+        <BookDetails book={book}
+                      subtitle={book.subtitle}
+                      averageRating={book.averageRating}
+                      ratingsCount={book.ratingsCount}
+                      categories={book.categories} 
+        />
       </div>
     )
   }
