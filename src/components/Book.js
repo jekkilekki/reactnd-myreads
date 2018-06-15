@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dropdown } from 'react-materialize'
+// import { Dropdown } from 'react-materialize'
 import BookDetails from './BookDetails'
 import ShelfSelect from './ShelfSelect'
 import Favorite from './Favorite'
@@ -20,7 +20,7 @@ class Book extends Component {
 
   dropDown(book) {
     console.log("Dropping down")
-    var dropdown = document.getElementById(`dropdown-${book.id}`)
+    // var dropdown = document.getElementById(`dropdown-${book.id}`)
     // dropdown.material_select();
   }
 

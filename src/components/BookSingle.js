@@ -1,40 +1,47 @@
 import React, { Component } from 'react'
-import { Modal, Button } from 'react-materialize'
+import { get } from './BooksAPI'
+import Loading from './Loading'
 import BookRating from './BookRating'
-import ShelfSelect from './ShelfSelect';
+import ShelfSelect from './ShelfSelect'
 
-class BookDetails extends Component {
+class BookSingle extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      "thisBook": props.book,
+      "loading": true
+    }
+  }
+
   getDate(string) {
     var dateArray = string.split("-")
     var date = new Date(dateArray.map((val) => val ))
     return date.toString
   }
+  
+  getBook(id) {
+    get(id).then((response) => {
+      console.log("This book: ", response)
+      this.setState({
+        thisBook: response,
+        loading: false
+      }, () => {console.log("Hello after loading", this.state.thisBook)})
+    })
+  }
+
+  componentWillMount() {
+    this.getBook(this.props.book)
+  }
 
   render() {
-    const { book } = this.props
+    const book = this.state.thisBook
+    console.log( "Rendering", this.state.thisBook)
     // const pubDate = book.publishedDate
-
     return (
-      <Modal id={`modal-${book.id}`} 
-            className="modal" 
-            fixedFooter
-            header={book.title}
-            actions={
-              <div className="">
-                <a href={`https://books.google.com/books?op=lookup&id=${book.id}`} 
-                    className="waves-effect waves-teal center">
-                  <BookRating />
-                  <div className="book-rating-link">
-                    Rate this book
-                  </div>
-                </a>
-                <i className="modal-close material-icons">close</i>
-              </div>
-            }
-            trigger={<Button className="modal-trigger">Book Details</Button>}>
-
         <div className="modal-info">
-          
+          {this.state.loading &&
+          <Loading />
+        }
           <div className="modal-header">
             <div className="modal-close">
               <i className="material-icons">close</i>
@@ -45,13 +52,13 @@ class BookDetails extends Component {
             }
           </div>
 
-          <div className="book-cover" 
+          {/* <div className="book-cover" 
               style={{
                 width: 128,
                 height: 180,
                 background: `url(${book.imageLinks.thumbnail})`
               }}
-          ></div>
+            ></div>*/}
 
           <div className="book-info">
             <div className="book-authors">by {
@@ -99,10 +106,20 @@ class BookDetails extends Component {
             <p>{book.description}</p>
           </div>
 
+          <div className="">
+            <a href={`https://books.google.com/books?op=lookup&id=${book.id}`} 
+                className="waves-effect waves-teal center">
+              <BookRating />
+              <div className="book-rating-link">
+                Rate this book
+              </div>
+            </a>
+            <i className="modal-close material-icons">close</i>
+          </div> */}
+
         </div>
-      </Modal>
     )
   }
 }
  
-export default BookDetails
+export default BookSingle

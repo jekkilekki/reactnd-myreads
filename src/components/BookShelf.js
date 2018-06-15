@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Carousel } from 'react-materialize'
+// import { Carousel } from 'react-materialize'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 import Loading from './Loading'
@@ -88,6 +88,9 @@ class BookShelf extends Component {
   render() {
     return (
       <div className="app">
+        {this.props.message && 
+          <p className="alert">{this.props.message}</p>
+        }
         {this.state.loading &&
           <Loading />
         }

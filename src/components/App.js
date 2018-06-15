@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Papa from 'papaparse'
-import './components/App.css';
-import Navigation from './components/Navigation'
-import BookShelf from './components/BookShelf'
+import './App.css';
+import Navigation from './Navigation'
+import Router from './Router'
 
 class App extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class App extends Component {
         <Navigation 
           search={this.state.searchOpen}
           onSearch={() => this.onSearch()} />
-        <BookShelf />
+        <Router />
       </div>
     );
   }
