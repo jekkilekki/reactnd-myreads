@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Autocomplete, Input, Icon } from 'react-materialize'
+import InputAutoComplete from './InputAutoComplete'
 
 class SearchBar extends Component {
   clickSearch() {
@@ -23,15 +24,16 @@ class SearchBar extends Component {
           // <Input s={12} id="search" type="search" label="Search">
           //   <Icon>search</Icon>
           // </Input>
-          <Autocomplete
-            title='Search'
-            data={{
-                'Apple': null,
-                'Microsoft': null,
-                'Google': 'http://placehold.it/250x250'
-            }}
-            onFocus={() => this.autocomplete()}
-          />
+          // <Autocomplete
+          //   title='Search'
+          //   data={{
+          //       'Apple': null,
+          //       'Microsoft': null,
+          //       'Google': 'http://placehold.it/250x250'
+          //   }}
+          //   onFocus={() => this.autocomplete()}
+          // />
+          <InputAutoComplete />
         }
         {/* <Icon>search</Icon> */}
         {/* </Input> */}

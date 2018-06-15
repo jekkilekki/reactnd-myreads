@@ -20,11 +20,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const searchTerms = Papa.parse('./components/SEARCH_TERMS.csv', {
+    Papa.parse("/SEARCH_TERMS.csv", {
+      download: true,
+      error: (err) => {
+        console.log(err)
+      },
       complete: (results) => {
+        console.log( results )
         this.setState({
           searchTerms: results.data
         })
+        console.log( "Search terms", this.state.searchTerms)
       }
     })
     
