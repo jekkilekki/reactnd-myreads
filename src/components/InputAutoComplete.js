@@ -5,7 +5,7 @@ export default class InputAutoComplete extends Component {
 
   constructor (props) {
     super(props);
-    this.options = ['aaron', 'snowberger']
+    this.options = ['aaron']
     this.state = {
       input: '',
       selected: false
@@ -72,8 +72,8 @@ export default class InputAutoComplete extends Component {
     let autoComplete = null;
     if (this.state.selected) {
       autoComplete = (<div style={styleSelect}>{
-        this.matches(this.state.input).map( option => {
-          return <div style={styleOptions} onClick={ () => this.handleClick(option)}>{option}</div>;
+        this.matches(this.state.input).map( (option, key) => {
+          return <div key={key} style={styleOptions} onClick={ () => this.handleClick(option)}>{option}</div>;
         })
       }</div>);
     }

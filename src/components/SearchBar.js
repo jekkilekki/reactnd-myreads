@@ -9,7 +9,9 @@ class SearchBar extends Component {
 
   submitSearch(e) {
     e.preventDefault()
-    alert( "Searching for " )
+    alert( "Searching for ", this.searchQuery.current.value )
+    const query = this.searchQuery.current.value;
+    this.props.history.push(`/search/${query}`)
   }
 
   render() {
@@ -33,7 +35,7 @@ class SearchBar extends Component {
           //   }}
           //   onFocus={() => this.autocomplete()}
           // />
-          <InputAutoComplete />
+          <InputAutoComplete ref={this.searchQuery} />
         }
         {/* <Icon>search</Icon> */}
         {/* </Input> */}

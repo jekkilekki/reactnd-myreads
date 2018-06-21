@@ -5,12 +5,9 @@ import Navigation from './Navigation'
 import Router from './Router'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      searchOpen: false,
-      searchTerms: []
-    }
+  state = {
+    searchOpen: false,
+    searchTerms: []
   }
 
   onSearch() {
@@ -42,6 +39,7 @@ class App extends Component {
       <div className="App">
         <Navigation 
           search={this.state.searchOpen}
+          searchTerms={this.state.searchTerms}
           onSearch={() => this.onSearch()} />
         <Router />
       </div>

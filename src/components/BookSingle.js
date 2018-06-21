@@ -8,9 +8,10 @@ class BookSingle extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      "thisBook": props.book,
+      "thisBook": null,
       "loading": true
     }
+    this.getBook = this.getBook.bind(this)
   }
 
   getDate(string) {
@@ -37,8 +38,10 @@ class BookSingle extends Component {
     const book = this.state.thisBook
     console.log( "Rendering", this.state.thisBook)
     // const pubDate = book.publishedDate
+    if(!book) return null
+
     return (
-        <div className="modal-info">
+        <div className="modal-info animated bounceInUp">
           {this.state.loading &&
           <Loading />
         }

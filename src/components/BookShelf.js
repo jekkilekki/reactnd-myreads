@@ -6,13 +6,10 @@ import Loading from './Loading'
 import './Book.css'
 
 class BookShelf extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      "books": [],
-      "bookshelves": [],
-      "loading": true
-    }
+  state = {
+    "books": [],
+    "bookshelves": [],
+    "loading": true
   }
 
   getData() {
