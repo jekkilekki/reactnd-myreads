@@ -6,6 +6,10 @@ import Search from './Search'
 import NotFound from './NotFound'
 
 class Router extends Component {
+  setPage = (url) => {
+    this.props.setPage(url)
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -14,16 +18,25 @@ class Router extends Component {
           <Route exact path="/book/:id" render={(props) => { 
             let bookId = props.location.pathname.replace('/book/', '');
             console.log("Book Id", bookId)
+            console.log("Book page props", props)
+            this.setPage(props.location.pathname)
             return (
               <BookSingle book={bookId} />
             )
           }}
           />
-          <Route path="/book" render={(props) => {
+          <Route path="/book" render={() => {
             return (
               <BookShelf message="Please select a book to view its details." />
             )
           }} />
+          <Route exact path="/search/:query" render={(props) => { 
+            let query = props.location.pathname.replace('/search/', '');
+            return (
+              <Search query={query} />
+            )
+          }}
+          />
           <Route path="/search" component={Search} />
           <Route component={NotFound} />
         </Switch>

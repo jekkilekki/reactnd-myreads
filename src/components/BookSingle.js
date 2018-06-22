@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { get } from './BooksAPI'
 import Loading from './Loading'
+import BookMeta from './BookMeta'
 import BookRating from './BookRating'
-import ShelfSelect from './ShelfSelect'
+import './BookSingle.css'
 
 class BookSingle extends Component {
   constructor(props) {
@@ -38,89 +39,32 @@ class BookSingle extends Component {
     const book = this.state.thisBook
     console.log( "Rendering", this.state.thisBook)
     // const pubDate = book.publishedDate
-    if(!book) return null
+    if(!book) return <Loading />
 
     return (
-        <div className="modal-info animated bounceInUp">
-          {this.state.loading &&
-          <Loading />
-        }
-          <div className="modal-header">
-            <div className="modal-close">
-              <i className="material-icons">close</i>
-            </div>
-            {/* <h4 className="book-title">{book.title}</h4> */}
-            { this.props.subtitle &&
-              <h6 className="book-subtitle">{this.props.subtitle}</h6>
-            }
+      <div className="book-single animated bounceInUp">
+        <header className="book-single-header grey darken-4 white-text">
+          <div className="container">
+            <BookMeta book={book} />  
           </div>
+        </header>
 
-          {/* <div className="book-cover" 
-              style={{
-                width: 128,
-                height: 180,
-                background: `url(${book.imageLinks.thumbnail})`
-              }}
-            ></div>*/}
-
-          <div className="book-info">
-            <div className="book-authors">by {
-              book.authors.map((author, i, arr) => (
-                arr.length - 1 === i ? 
-                  <span key={i}>{author}</span> : 
-                  <span key={i}>{author}, </span>
-              ))
-            }</div>
-            { book.averageRating && 
-              <BookRating average={book.averageRating} count={book.ratingsCount} />
-            }
-            <div className="book-publisher">
-              { book.publisher && 
-                <span>{book.publisher}, </span>
-              }
-              <span>{book.publishedDate}</span>
-            </div>
-            <div className="book-isbn">
-              ISBN: <span className="isbn-13">{book.industryIdentifiers[0].identifier}</span>, <span className="isbn-10">{book.industryIdentifiers[1].identifier}</span>
-            </div>
-            <div className="book-pages">
-              <span>{book.pageCount} pages</span>
-            </div>
-            { book.categories && 
-              <div className="book-categories">{
-                book.categories.map((category, i, arr) => (
-                  arr.length - 1 === i ? 
-                    <span key={i}>{category}</span> : 
-                    <span key={i}>{category}, </span>
-                ))
-              }</div>
-            }
-
-            <footer className="book-info-footer">
-              <a className="book-preview waves-effect waves-light btn" 
-                href={book.previewLink}>Preview</a>
-              <i className="book-favorite material-icons">star_border</i>
-              <ShelfSelect book={book} />
-              <span className="book-shelf-changer-text">Move to...</span>
-            </footer>
-          </div>
-
+        <div className="container">
           <div className="book-description">
             <p>{book.description}</p>
           </div>
-
-          <div className="">
-            <a href={`https://books.google.com/books?op=lookup&id=${book.id}`} 
-                className="waves-effect waves-teal center">
-              <BookRating />
-              <div className="book-rating-link">
-                Rate this book
-              </div>
-            </a>
-            <i className="modal-close material-icons">close</i>
-          </div> */}
-
         </div>
+
+        <div className="">
+          <a href={`https://books.google.com/books?op=lookup&id=${book.id}`} 
+              className="waves-effect waves-teal center">
+            <BookRating />
+            <div className="book-rating-link">
+              Rate this book
+            </div>
+          </a>
+        </div>
+      </div>
     )
   }
 }

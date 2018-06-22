@@ -13,6 +13,9 @@ class Navigation extends Component {
         <div className="main-navigation navbar-fixed">
           <nav className={navbarClass}>
             <div className="nav-wrapper container">
+              {this.props.location === "/" && 
+                <i className="back-arrow material-icons">arrow_back</i>
+              }
               <a href="/" className="brand-logo centered">MyReads</a>
               <SearchBar 
                 searchOpen={this.props.search}

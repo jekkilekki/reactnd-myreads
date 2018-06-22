@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import { Dropdown } from 'react-materialize'
-import BookDetails from './BookDetails'
+import BookModal from './BookModal'
 import ShelfSelect from './ShelfSelect'
 import Favorite from './Favorite'
 
@@ -30,12 +30,14 @@ class Book extends Component {
       <div id={`book-${book.id}`} className="book" >
 
         <div className="book-top">
-          <div className="book-cover hoverable" 
-              style={{ 
-                width: 140, 
-                height: 200, 
-                background: `url(${book.imageLinks.thumbnail})` 
-              }}></div>
+          <a href={`/book/${book.id}`}>
+            <div className="book-cover hoverable" 
+                style={{ 
+                  width: 140, 
+                  height: 200, 
+                  background: `url(${book.imageLinks.thumbnail})` 
+                }}></div>
+          </a>
           {/* <i className="book-favorite material-icons" 
               onClick={() => this.favorite(book)}>star_border</i> */}
           <Favorite onClick={() => this.favorite(book)}/>
@@ -50,7 +52,7 @@ class Book extends Component {
             <span className="book-date">{book.publishedDate.substr(0,4)}</span>
           </div>  
         </div>
-        <BookDetails book={book}
+        <BookModal book={book}
                       subtitle={book.subtitle}
                       averageRating={book.averageRating}
                       ratingsCount={book.ratingsCount}

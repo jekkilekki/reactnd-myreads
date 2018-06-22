@@ -57,3 +57,8 @@ nav .search-icon {
 .main-navigation nav {
   transition: 0.5s;
 }
+
+.back-arrow {
+  position: absolute;
+  left: 0;
+}

@@ -31,7 +31,7 @@ class BookDetails extends Component {
                 <i className="modal-close material-icons">close</i>
               </div>
             }
-            trigger={<Button className="modal-trigger">Book Details</Button>}>
+            trigger={<Button className="modal-trigger">Preview</Button>}>
 
         <div className="modal-info">
           
@@ -88,7 +88,7 @@ class BookDetails extends Component {
 
             <footer className="book-info-footer">
               <a className="book-preview waves-effect waves-light btn" 
-                href={book.previewLink}>Preview</a>
+                href={book.previewLink}>View</a>
               <i className="book-favorite material-icons">star_border</i>
               <ShelfSelect book={book} />
               <span className="book-shelf-changer-text">Move to...</span>

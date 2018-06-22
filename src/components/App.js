@@ -6,14 +6,9 @@ import Router from './Router'
 
 class App extends Component {
   state = {
+    page: "/",
     searchOpen: false,
     searchTerms: []
-  }
-
-  onSearch() {
-    this.setState(prevState => ({
-      searchOpen: !prevState.searchOpen
-    }))
   }
 
   componentDidMount() {
@@ -34,6 +29,22 @@ class App extends Component {
     console.log( this.state.searchTerms )
   }
 
+  setPage = (url) => {
+    // 1. Take a copy of the current state
+    // const page = {...this.state.page}
+    // // 2. Update that state
+    // page[key] = url
+    // 3. Set that to state
+    // this.setState({page: url})
+    console.log("new page url", url)
+  }
+
+  onSearch() {
+    this.setState(prevState => ({
+      searchOpen: !prevState.searchOpen
+    }))
+  }
+
   render() {
     return (
       <div className="App">
@@ -41,7 +52,7 @@ class App extends Component {
           search={this.state.searchOpen}
           searchTerms={this.state.searchTerms}
           onSearch={() => this.onSearch()} />
-        <Router />
+        <Router setPage={this.setPage} />
       </div>
     );
   }
