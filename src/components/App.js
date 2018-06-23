@@ -18,9 +18,9 @@ class App extends Component {
         console.log(err)
       },
       complete: (results) => {
-        console.log( results )
+        console.log( "Results", results )
         this.setState({
-          searchTerms: results.data
+          searchTerms: results.data[0]
         })
         console.log( "Search terms", this.state.searchTerms)
       }
@@ -52,7 +52,9 @@ class App extends Component {
           search={this.state.searchOpen}
           searchTerms={this.state.searchTerms}
           onSearch={() => this.onSearch()} />
-        <Router setPage={this.setPage} />
+        <Router 
+          setPage={this.setPage} 
+          searchTerms={this.state.searchTerms} />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import SearchBar from './SearchBar'
 
 class Navigation extends Component {
@@ -17,10 +18,13 @@ class Navigation extends Component {
                 <i className="back-arrow material-icons">arrow_back</i>
               }
               <a href="/" className="brand-logo centered">MyReads</a>
-              <SearchBar 
+              {/* <SearchBar 
                 searchOpen={this.props.search}
                 toggleSearch={() => this.toggleSearch()}
-                onSubmit={() => this.submitSearch()} />
+                onSubmit={() => this.submitSearch()} /> */}
+                <a href="/search">
+                  <i className="search material-icons">search</i>
+                </a>
             </div>
           </nav>
         </div>
@@ -29,4 +33,5 @@ class Navigation extends Component {
   }
 }
  
+// export default withRouter(Navigation)
 export default Navigation

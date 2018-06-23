@@ -44,13 +44,18 @@ class Book extends Component {
           <ShelfSelect book={book} />
         </div>
         <div className="book-info">
-          <div className="book-title white-text">{book.title}</div>
-          <div className="book-authors">
-            {book.authors.map((author, i) => (
-              <span key={i} className="author">{author}<br /></span>
-            ))}
-            <span className="book-date">{book.publishedDate.substr(0,4)}</span>
-          </div>  
+          <div className="book-title">{book.title}</div>
+
+          {book.authors && 
+            <div className="book-authors">
+              {book.authors.map((author, i) => (
+                <span key={i} className="author">{author}<br /></span>
+              ))}
+            </div>
+            }
+            {book.publishedDate && 
+              <span className="book-date">{book.publishedDate.substr(0,4)}</span>
+            } 
         </div>
         <BookModal book={book}
                       subtitle={book.subtitle}

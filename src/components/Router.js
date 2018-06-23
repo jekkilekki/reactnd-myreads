@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import BookShelf from './BookShelf'
 import BookSingle from './BookSingle'
 import Search from './Search'
@@ -8,6 +8,10 @@ import NotFound from './NotFound'
 class Router extends Component {
   setPage = (url) => {
     this.props.setPage(url)
+  }
+
+  updateSearchRoute = (query) => {
+    // this.history.push(`/search/${query}`)
   }
 
   render() {
@@ -30,14 +34,29 @@ class Router extends Component {
               <BookShelf message="Please select a book to view its details." />
             )
           }} />
+          {/* <Redirect 
+            from="/search/:query" 
+            to={{
+              pathname: "/search",
+              search: "?query=",
+             }} /> */}
           <Route exact path="/search/:query" render={(props) => { 
             let query = props.location.pathname.replace('/search/', '');
             return (
-              <Search query={query} />
+              <Search 
+                searchTerms={this.props.searchTerms}
+                query={query}
+                onSearch={this.updateSearchRoute} />
             )
           }}
           />
-          <Route path="/search" component={Search} />
+          <Route path="/search" render={(props) => { 
+            return (
+              <Search 
+                searchTerms={this.props.searchTerms}
+                onSearch={this.updateSearchRoute} />
+            )
+          }} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

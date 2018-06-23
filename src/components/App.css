@@ -58,7 +58,34 @@ nav .search-icon {
   transition: 0.5s;
 }
 
-.back-arrow {
+.main-navigation .back-arrow {
   position: absolute;
   left: 0;
+}
+
+.main-navigation .search {
+  position: absolute;
+  right: 0;
+}
+
+.search #search-autocomplete {
+  position: absolute;
+  margin: -7px 0 0;
+  z-index: 10;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.16);
+  max-height: 80%;
+  overflow-y: scroll;
+}
+
+.search .search-autocomplete-term {
+  padding: 15px 25px;
+  text-align: left;
+  background: rgba(232, 232, 232, 0.9);
+  cursor: pointer;
+}
+
+.search .search-autocomplete-term:active,
+.search .search-autocomplete-term:focus,
+.search .search-autocomplete-term:hover {
+  background: white;
 }

@@ -54,13 +54,15 @@ class BookDetails extends Component {
           ></div>
 
           <div className="book-info">
-            <div className="book-authors">by {
-              book.authors.map((author, i, arr) => (
-                arr.length - 1 === i ? 
-                  <span key={i}>{author}</span> : 
-                  <span key={i}>{author}, </span>
-              ))
-            }</div>
+            {book.authors && 
+              <div className="book-authors">by {
+                book.authors.map((author, i, arr) => (
+                  arr.length - 1 === i ? 
+                    <span key={i}>{author}</span> : 
+                    <span key={i}>{author}, </span>
+                ))
+              }</div>
+            }
             { book.averageRating && 
               <BookRating average={book.averageRating} count={book.ratingsCount} />
             }
@@ -68,7 +70,9 @@ class BookDetails extends Component {
               { book.publisher && 
                 <span>{book.publisher}, </span>
               }
-              <span>{book.publishedDate}</span>
+              { book.publishedDate && 
+                <span>{book.publishedDate}</span>
+              }
             </div>
             <div className="book-isbn">
               ISBN: <span className="isbn-13">{book.industryIdentifiers[0].identifier}</span>, <span className="isbn-10">{book.industryIdentifiers[1].identifier}</span>
