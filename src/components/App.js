@@ -56,8 +56,8 @@ class App extends Component {
           setPage={this.setPage} 
           searchTerms={this.state.searchTerms} />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
