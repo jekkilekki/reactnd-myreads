@@ -24,6 +24,10 @@ class Book extends Component {
     // dropdown.material_select();
   }
 
+  onChangeShelf = (book, shelf) => {
+    this.props.onChangeShelf(book, shelf)
+  }
+
   render() {
     const { book } = this.props
     return (
@@ -41,7 +45,9 @@ class Book extends Component {
           {/* <i className="book-favorite material-icons" 
               onClick={() => this.favorite(book)}>star_border</i> */}
           <Favorite onClick={() => this.favorite(book)}/>
-          <ShelfSelect book={book} />
+          <ShelfSelect 
+            book={book}
+            onChangeShelf={this.onChangeShelf} />
         </div>
         <div className="book-info">
           <div className="book-title">{book.title}</div>

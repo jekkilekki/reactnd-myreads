@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import SearchBar from './SearchBar'
+// import { withRouter } from 'react-router-dom'
+// import SearchBar from './SearchBar'
 
 class Navigation extends Component {
   toggleSearch() {

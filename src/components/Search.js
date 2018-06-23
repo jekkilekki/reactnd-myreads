@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { search, update } from './BooksAPI'
-import Autocomplete from 'react-autocomplete'
+import { search } from './BooksAPI'
+// import Autocomplete from 'react-autocomplete'
 import Loading from './Loading'
 import Book from './Book'
 

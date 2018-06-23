@@ -46,6 +46,7 @@ class ShelfSelect extends Component {
   changeShelf = (book, shelf) => {
     console.log("changing to:", shelf)
     update(book, shelf)
+    this.props.onChangeShelf(book, shelf)
   }
 
   render() {

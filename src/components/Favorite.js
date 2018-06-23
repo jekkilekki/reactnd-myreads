@@ -1,9 +1,9 @@
 import React from 'react'
 
 const Favorite = (props) => {
-  const favorite = () => {
-    this.props.onFavorite();
-  }
+  // const favorite = () => {
+  //   this.props.onFavorite();
+  // }
 
   return (
     <i className="book-favorite material-icons"
