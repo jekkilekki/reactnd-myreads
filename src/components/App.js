@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Papa from 'papaparse'
-import './App.css';
+import './App.css'
 import Navigation from './Navigation'
-import Router from './Router'
+import BookShelf from './BookShelf'
+import BookSingle from './BookSingle'
+import Search from './Search'
+import NotFound from './NotFound'
 
 class App extends Component {
   state = {
@@ -47,15 +51,23 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Navigation 
-          search={this.state.searchOpen}
-          searchTerms={this.state.searchTerms}
-          onSearch={() => this.onSearch()} />
-        <Router 
-          setPage={this.setPage} 
-          searchTerms={this.state.searchTerms} />
-      </div>
+      <BrowserRouter>
+        <main className='app app-container'>
+          <Navigation />
+          <Switch>
+            <Route exact path="/" component={BookShelf} />
+            <Route exact path="/book/:id" component={BookSingle} />
+            {/* <Route path="/book" render={() => {
+              return (
+                <BookShelf message="Please select a book to view its details." />
+              )
+            }} /> */}
+            {/* <Route exact path="/search/:query" component={Search} /> */}
+            <Route path="/search" component={Search} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
+      </BrowserRouter>
     )
   }
 }

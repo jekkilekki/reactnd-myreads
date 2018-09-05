@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 // import SearchBar from './SearchBar'
 
 class Navigation extends Component {
@@ -8,13 +8,17 @@ class Navigation extends Component {
   }
 
   render() {
-    const navbarClass = this.props.search === false ? 'teal' : 'white'
+    const { match, location, history } = this.props
+    console.log( 'Navigation: ', location )
+
+    // const navbarClass = this.props.search === false ? 'teal' : 'white'
+    const navbarClass = 'teal'
     return (
       <header className="app-header">
         <div className="main-navigation navbar-fixed">
           <nav className={navbarClass}>
             <div className="nav-wrapper container">
-              {this.props.location === "/" && 
+              {location.pathname !== "/" && 
                 <i className="back-arrow material-icons">arrow_back</i>
               }
               <a href="/" className="brand-logo centered">MyReads</a>
@@ -33,5 +37,5 @@ class Navigation extends Component {
   }
 }
  
-// export default withRouter(Navigation)
-export default Navigation
+export default withRouter(Navigation)
+// export default Navigation

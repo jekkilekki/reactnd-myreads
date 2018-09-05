@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import BookShelf from './BookShelf'
 import BookSingle from './BookSingle'
+import Navigation from './Navigation'
 import Search from './Search'
 import NotFound from './NotFound'
 
@@ -17,12 +18,12 @@ class Router extends Component {
   render() {
     return (
       <BrowserRouter>
+      <main className='app app-container'>
+        <Navigation />
         <Switch>
           <Route exact path="/" component={BookShelf} />
           <Route exact path="/book/:id" render={(props) => { 
             let bookId = props.location.pathname.replace('/book/', '');
-            console.log("Book Id", bookId)
-            console.log("Book page props", props)
             this.setPage(props.location.pathname)
             return (
               <BookSingle book={bookId} />
@@ -59,6 +60,7 @@ class Router extends Component {
           }} />
           <Route component={NotFound} />
         </Switch>
+        </main>
       </BrowserRouter>
     )
   }
