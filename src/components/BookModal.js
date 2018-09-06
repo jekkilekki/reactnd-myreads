@@ -72,9 +72,13 @@ class BookDetails extends Component {
                 <span>{book.publishedDate}</span>
               }
             </div>
+            {/* 
+            Astronomy = no ISBN, something has no image
+            {book.industryIdentifiers !== undefined &&
             <div className="book-isbn">
               ISBN: <span className="isbn-13">{book.industryIdentifiers[0].identifier}</span>, <span className="isbn-10">{book.industryIdentifiers[1].identifier}</span>
             </div>
+            } */}
             <div className="book-pages">
               <span>{book.pageCount} pages</span>
             </div>

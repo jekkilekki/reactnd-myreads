@@ -11,7 +11,7 @@ class Search extends Component {
   state = {
     searching: true,
     searchOpen: false,
-    searchValue: '',
+    searchValue: this.props.location.state.query || '',
     searchTerms: [],
     results: null,
     errorMsg: ''
@@ -20,8 +20,8 @@ class Search extends Component {
   componentDidMount() {
     const { location } = this.props
 
-    if ( location.pathname !== '/search' ) {
-      this.searchBooks( location.pathname.substr(8) )
+    if ( location.state.query ) {
+      this.searchBooks( location.state.query )
     }
 
     Papa.parse("../SEARCH_TERMS.csv", {
@@ -39,6 +39,7 @@ class Search extends Component {
 
   handleChange = (e) => {
     const query = e.target.value
+    alert(e)
     this.setState((prevState) => {
       return {
         searchValue: query,
@@ -96,11 +97,17 @@ class Search extends Component {
   }
 
   closeAutocomplete = () => {
-    document.getElementById("search-autocomplete").style.display = "none"
+    setTimeout(() => {
+      document.getElementById("search-autocomplete").style.display = "none"
+    }, 50)
   }
 
   selectSearchTerm = (e) => {
-    console.log("selected: ")
+    const query = e.target.id
+    this.setState({
+      searchValue: query
+    })
+    this.searchBooks(query)
   }
 
   submitForm = (e) => {
@@ -111,7 +118,6 @@ class Search extends Component {
   
   render() {
     const { searchTerms, searchValue } = this.state
-    const urlQuery = this.props.location.pathname.substr(8)
 
     return (
       <div className="search">
@@ -124,7 +130,7 @@ class Search extends Component {
                 className="search-input"
                 ref={this.queryRef}
                 placeholder="Find a Book" 
-                value={searchValue || urlQuery}
+                value={searchValue}
                 onChange={this.handleChange}
                 onBlur={this.closeAutocomplete}
                 onFocus={this.openAutocomplete} 

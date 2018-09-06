@@ -57,9 +57,16 @@ class App extends Component {
             <Route exact path="/book/:id" component={BookSingle} />
             <Redirect from='/book' to={{ pathname: '/search', state: { book: 'none' }}} />
             <Redirect from='/books' to={{ pathname: '/search', state: { book: 'none' }}} />
-            <Route exact path="/search/:query" component={Search} />
-            <Route path="/search" render={() => (
+            <Route exact path="/search" render={() => (
               <Search books={books} onUpdateBook={this.updateBook} />
+            )} />
+            <Route path="/search/:query" render={(props) => (
+              <Redirect to={{
+                pathname: '/search',
+                state: {
+                  query: props.match.params.query
+                }
+              }} />
             )} />
             <Route component={NotFound} />
           </Switch>
