@@ -127,14 +127,14 @@ class BookRating extends Component {
 
   render() {
     return (
-      <div className="book-rating">
+      <a href={this.props.link} className="book-rating">
         {this.renderStars(this.props.average)}
         { this.props.count && 
           <span className="book-rating-number">
             {this.props.count} ratings
           </span>
         }
-      </div>
+      </a>
     )
   }
 }

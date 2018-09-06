@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 // import SearchBar from './SearchBar'
 
 class Navigation extends Component {
@@ -19,16 +19,19 @@ class Navigation extends Component {
           <nav className={navbarClass}>
             <div className="nav-wrapper container">
               {location.pathname !== "/" && 
-                <i className="back-arrow material-icons">arrow_back</i>
+                <Link to='/' className='back-button'>
+                  <i className="back-arrow material-icons">arrow_back</i>
+                  <span>Bookshelf</span>
+                </Link>
               }
-              <a href="/" className="brand-logo centered">MyReads</a>
+              <Link to='/' className="brand-logo centered">MyReads</Link>
               {/* <SearchBar 
                 searchOpen={this.props.search}
                 toggleSearch={() => this.toggleSearch()}
                 onSubmit={() => this.submitSearch()} /> */}
-                <a href="/search">
+                <Link to="/search">
                   <i className="search material-icons">search</i>
-                </a>
+                </Link>
             </div>
           </nav>
         </div>

@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const NotFound = () => {
   return (
     <div className="container">
       <header>
-        <h1 className="page-title">404 Not Found</h1>
-        <h2 className="page-subtitle">Whoops, we couldn't find the page you wanted.</h2>
-        <p>Perhaps try a search?</p>
+        <h2 className="page-title center">404 Not Found</h2>
+        <p className="page-subtitle center">Whoops, we couldn't find the page you wanted.</p>
+        <p className="center">Perhaps try a <Link to='/search'>search</Link>?</p>
       </header>
     </div>
   )

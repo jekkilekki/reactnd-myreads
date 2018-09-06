@@ -15,26 +15,27 @@ class BookDetails extends Component {
     // const pubDate = book.publishedDate
 
     return (
-      <Modal id={`modal-${book.id}`} 
-            className="modal" 
-            fixedFooter
-            header={book.title}
-            actions={
-              <div className="">
-                <a href={`https://books.google.com/books?op=lookup&id=${book.id}`} 
-                    className="waves-effect waves-teal center">
-                  <BookRating />
-                  <div className="book-rating-link">
-                    Rate this book
-                  </div>
-                </a>
-                <i className="modal-close material-icons">close</i>
+      <Modal 
+        id={`modal-${book.id}`} 
+        className="modal" 
+        fixedFooter
+        header={book.title}
+        actions={
+          <div className="">
+            <a href={`https://books.google.com/books?op=lookup&id=${book.id}`} 
+                className="waves-effect waves-teal center">
+              <BookRating link={book.previewLink} />
+              <div className="book-rating-link">
+                Rate this book
               </div>
-            }
-            trigger={<Button className="modal-trigger">Preview</Button>}>
+            </a>
+            <i className="modal-close material-icons">close</i>
+          </div>
+        }
+        trigger={<Button className="modal-trigger">Preview</Button>}
+      >
 
         <div className="modal-info">
-          
           <div className="modal-header">
             <div className="modal-close">
               <i className="material-icons">close</i>
@@ -57,14 +58,14 @@ class BookDetails extends Component {
             {book.authors && 
               <div className="book-authors">by {
                 book.authors.map((author, i, arr) => (
-                  arr.length - 1 === i ? 
-                    <span key={i}>{author}</span> : 
-                    <span key={i}>{author}, </span>
+                  arr.length - 1 === i 
+                    ? <span key={i}>{author}</span> 
+                    : <span key={i}>{author}, </span>
                 ))
               }</div>
             }
             { book.averageRating && 
-              <BookRating average={book.averageRating} count={book.ratingsCount} />
+              <BookRating link={book.previewLink} average={book.averageRating} count={book.ratingsCount} />
             }
             <div className="book-publisher">
               { book.publisher && 
@@ -83,9 +84,9 @@ class BookDetails extends Component {
             { book.categories && 
               <div className="book-categories">{
                 book.categories.map((category, i, arr) => (
-                  arr.length - 1 === i ? 
-                    <span key={i}>{category}</span> : 
-                    <span key={i}>{category}, </span>
+                  arr.length - 1 === i 
+                    ? <span key={i}>{category}</span> 
+                    : <span key={i}>{category}, </span>
                 ))
               }</div>
             }

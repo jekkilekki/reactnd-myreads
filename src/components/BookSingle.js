@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { get } from './BooksAPI'
 import Loading from './Loading'
 import BookMeta from './BookMeta'
@@ -6,13 +7,9 @@ import BookRating from './BookRating'
 import './BookSingle.css'
 
 class BookSingle extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      "thisBook": null,
-      "loading": true
-    }
-    this.getBook = this.getBook.bind(this)
+  state = {
+    thisBook: null,
+    loading: true
   }
 
   getDate(string) {
@@ -32,41 +29,56 @@ class BookSingle extends Component {
   }
 
   componentWillMount() {
-    this.getBook(this.props.book)
+    const { location } = this.props
+    const id = location.pathname.substr(6)
+    this.getBook(id)
   }
 
   render() {
-    const book = this.state.thisBook
-    console.log( "Rendering", this.state.thisBook)
-    // const pubDate = book.publishedDate
-    if(!book) return <Loading />
+    const { thisBook } = this.state
+
+    if ( ! thisBook ) return <Loading />
+
+    let bookStatus = ''
+    switch( thisBook.shelf ) {
+      case 'currentlyReading':
+        bookStatus = "are currently reading"
+        break;
+      case 'wantToRead':
+        bookStatus = "want to read"
+        break;
+      case 'read':
+        bookStatus = "have already read"
+        break;
+      default:
+        bookStatus = "haven't shelved"
+    }
 
     return (
       <div className="book-single animated bounceInUp">
+        <p className="center bookshelf-status">You <span className="red-text">{bookStatus}</span> this book.</p>
         <header className="book-single-header grey darken-4 white-text">
           <div className="container">
-            <BookMeta book={book} />  
+            <BookMeta book={thisBook} />  
           </div>
         </header>
 
         <div className="container">
           <div className="book-description">
-            <p>{book.description}</p>
+            <p>{thisBook.description}</p>
           </div>
         </div>
 
-        <div className="">
-          <a href={`https://books.google.com/books?op=lookup&id=${book.id}`} 
-              className="waves-effect waves-teal center">
-            <BookRating />
-            <div className="book-rating-link">
-              Rate this book
-            </div>
-          </a>
+        <hr />
+        <div className="container center">
+          <BookRating link={thisBook.previewLink} />
+          <div className="book-rating-link">
+            Rate this book
+          </div>
         </div>
       </div>
     )
   }
 }
  
-export default BookSingle
+export default withRouter(BookSingle)

@@ -6,3 +6,21 @@
   background: #424242;
   padding: 10px 0;
 }
+
+.book-single .container {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+.book-single .book-description {
+  padding-bottom: 0;
+}
+
+.book-single .book-info {
+  margin-bottom: 0;
+}
+
+.book-single .book-cover:hover {
+  box-shadow: none;
+}

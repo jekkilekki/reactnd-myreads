@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
-// import { Dropdown } from 'react-materialize'
+import { Dropdown, NavItem } from 'react-materialize'
 import BookModal from './BookModal'
 import ShelfSelect from './ShelfSelect'
 import Favorite from './Favorite'
 
 class Book extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      props
-    }
-    console.log( "this props", this.state )
+  state = {
+    book: this.props.book,
+    shelf: this.props.book.shelf
   }
 
   favorite(book) {
@@ -26,10 +23,15 @@ class Book extends Component {
 
   onChangeShelf = (book, shelf) => {
     this.props.onChangeShelf(book, shelf)
+    this.setState({
+      shelf: shelf
+    })
   }
 
   render() {
-    const { book } = this.props
+    const { book } = this.state
+    const { subtitle, averageRating, ratingsCount, categories } = this.props
+
     return (
       <div id={`book-${book.id}`} className="book" >
 
@@ -45,9 +47,15 @@ class Book extends Component {
           {/* <i className="book-favorite material-icons" 
               onClick={() => this.favorite(book)}>star_border</i> */}
           <Favorite onClick={() => this.favorite(book)}/>
+          {/* <Dropdown trigger={
+            <i className="material-icons">arrow_drop_down_circle</i>
+          }>
+            Yes
+          </Dropdown> */}
           <ShelfSelect 
             book={book}
-            onChangeShelf={this.onChangeShelf} />
+            onChangeShelf={this.onChangeShelf} 
+          />
         </div>
         <div className="book-info">
           <div className="book-title">{book.title}</div>
@@ -63,11 +71,12 @@ class Book extends Component {
               <span className="book-date">{book.publishedDate.substr(0,4)}</span>
             } 
         </div>
-        <BookModal book={book}
-                      subtitle={book.subtitle}
-                      averageRating={book.averageRating}
-                      ratingsCount={book.ratingsCount}
-                      categories={book.categories} 
+        <BookModal 
+          book={book}
+          subtitle={subtitle}
+          averageRating={averageRating}
+          ratingsCount={ratingsCount}
+          categories={categories} 
         />
       </div>
     )

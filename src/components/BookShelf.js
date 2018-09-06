@@ -1,95 +1,50 @@
 import React, { Component } from 'react'
-// import { Carousel } from 'react-materialize'
-import * as BooksAPI from './BooksAPI'
-import Book from './Book'
-import BookShelfSingle from './BookShelfSingle'
+import { Button } from 'react-materialize'
+import { getAll } from './BooksAPI'
 import Loading from './Loading'
+import Book from './Book'
 import './Book.css'
 
 class BookShelf extends Component {
   state = {
-    "books": [],
-    "bookshelves": [],
-    "loading": true
+    books: [],
+    bookshelves: [],
+    loading: true
+  }
+
+  componentWillMount() {
+    this.getData()
   }
 
   getData() {
-    BooksAPI.getAll().then((response) => {
+    getAll().then((response) => {
       console.log("First response:", response)
       this.setState({
         books: response,
       })
-
-      this.updateBookshelves()
-
       // this.state.books.map((book) => {
       //   this.setState({
       //     booksAnimations: { id: book.id, animation: 'card' }
       //   })
       // })
     })
-      .then(() => {
-        console.log("Book state:", this.state.books)
-        console.log("Book animations", this.state.bookAnimations)
-      })
-      .catch((error) => console.log(error))
-  }
-
-  toggleFavorite() {
-    var favorite = { ...this.state.someProperty }
-    favorite.favorited = true;
-    this.setState({ favorite })
-    console.log(this)
-  }
-
-  changeShelf = (book, shelf) => {
-    // 1. Take a copy of the current books state
-    // let books = {...this.state.books}
-    // 2. Update that state
-    let updatedBook = this.state.books.filter((key) => (
-      key.id === book.id
-    ))
-    let updatedShelf = this.state.books.filter((key) => (
-      key.id !== book.id
-    ))
-    console.log("updating", updatedBook[0])
-    // updatedBook = updatedBook[0]
-    updatedBook[0].shelf = shelf
-    // console.log("updating", updatedBook)
-    // 3. Set that to state
-    this.setState({
-      books: {...updatedShelf, updatedBook}
+    .then(() => {
+      this.updateBookshelves()
     })
-
-    // Update bookshelves
-    this.updateBookshelves()
-    console.log("Updated books", this.state.books)
-    console.log("Updated bookshelves", this.state.bookshelves)
-
-    // 1. Take a copy of the current bookshelves
-    // const shelves = {...this.state.bookshelves}
-    // // 2. Update that state
-    // const updatedShelf = this.state.bookshelves.filter((key) => (
-    //   key.shelf === shelf
-    // ))
-    // updatedShelf[0].books = {...updatedShelf[0].books, updatedBook}
-    // console.log("updating shelf", updatedShelf)
-    // this.setState({fishes})
+    .catch((e) => console.log("There was an error retrieving Book data.", e))
   }
 
   updateBookshelves() {
-    // this.state.books.map((book) => (
-    //   book.favorited = false
-    // ))
-    console.log("here we go updating bookshelves", this.state.books)
+    const { books } = this.state
 
-    let pastRead = this.state.books.filter((book) => (
+    let pastRead = books.filter((book) => (
       book.shelf === "read"
     ))
-    let nowRead = this.state.books.filter((book) => (
+        console.log("Yo yo yo books", pastRead)
+    let nowRead = books.filter((book) => (
       book.shelf === "currentlyReading"
     ))
-    let futureRead = this.state.books.filter((book) => (
+    let futureRead = books.filter((book) => (
       book.shelf === "wantToRead"
     ))
 
@@ -118,25 +73,51 @@ class BookShelf extends Component {
     })
   }
 
-  componentWillMount() {
-    this.getData()
+  changeShelf = (book, shelf) => {
+    const { books } = this.state
+
+    let updatedBook = books.filter((key) => (
+      key.id === book.id
+    ))
+    let updatedShelf = books.filter((key) => (
+      key.id !== book.id
+    ))
+
+    updatedBook[0].shelf = updatedShelf
+
+    this.setState({
+      books: {...updatedShelf, updatedBook}
+    })
+
+    // Update bookshelves
+    this.updateBookshelves()
+    console.log("Updated books", this.state.books)
+    console.log("Updated bookshelves", this.state.bookshelves)
   }
 
+  // toggleFavorite() {
+  //   var favorite = { ...this.state.someProperty }
+  //   favorite.favorited = true;
+  //   this.setState({ favorite })
+  //   console.log(this)
+  // }
+
   render() {
+    const { message } = this.props
+    const { loading, bookshelves } = this.state
+
     return (
       <div className="app">
-        {this.props.message && 
-          <p className="alert">{this.props.message}</p>
-        }
-        {this.state.loading &&
-          <Loading />
-        }
-        {/* <BookShelfSingle name={"Reading"} books=
-        {this.state.books.filter((book) => (
-          book.shelf === "currentlyReading"
-        ))}
-        /> */}
-        {this.state.bookshelves.map((bookshelf, i) => (
+        { message && <p className="alert">{message}</p> }
+        <Button 
+          waves="light"
+          className="back-button center red lighten-2"
+          onClick={this.getData}
+        >Reset books</Button>
+
+        { loading && <Loading /> }
+
+        { bookshelves.map((bookshelf, i) => (
           <div key={i} className="bookshelf animated bounceInUp">
             <div className="row">
               <span className={bookshelf.className}>{bookshelf.name}</span>
@@ -146,23 +127,21 @@ class BookShelf extends Component {
                 <div className="row">
                   <div className="col s12">
                     <div className="bookshelf-books">
-                      {/* <Carousel className="books-grid"
-                          options={{dist: 0, numVisible: -1}}> */}
                       <ul className="books-grid">
                         {bookshelf.books.map((book) => (
-                          // <div key={book.id}>
                           <li key={book.id}>
-                            <Book book={book}
-                                  // subtitle={book.subtitle}
-                                  // averageRating={book.averageRating}
-                                  // ratingsCount={book.ratingsCount}
-                                  // categories={book.categories} 
-                                  onFavorited={() => this.toggleFavorite()}
-                                  onChangeShelf={this.changeShelf} />
+                            <Book 
+                              book={book}
+                              subtitle={book.subtitle}
+                              averageRating={book.averageRating}
+                              ratingsCount={book.ratingsCount}
+                              categories={book.categories} 
+                              onFavorited={() => this.toggleFavorite()}
+                              onChangeShelf={this.changeShelf} 
+                            />
                           </li>
                         ))}
                       </ul>
-                      {/* </Carousel> */}
                     </div>
                   </div>
                 </div>
