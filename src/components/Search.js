@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { search } from './BooksAPI'
 import Papa from 'papaparse'
-// import Autocomplete from 'react-autocomplete'
 import Loading from './Loading'
 import Book from './Book'
 
@@ -9,14 +9,21 @@ class Search extends Component {
   queryRef = React.createRef()
 
   state = {
-    loading: true,
+    searching: true,
     searchOpen: false,
     searchValue: '',
     searchTerms: [],
     results: null,
+    errorMsg: ''
   }
 
   componentDidMount() {
+    const { location } = this.props
+
+    if ( location.pathname !== '/search' ) {
+      this.searchBooks( location.pathname.substr(8) )
+    }
+
     Papa.parse("../SEARCH_TERMS.csv", {
       download: true,
       error: (e) => {
@@ -40,7 +47,7 @@ class Search extends Component {
         })
       }
     })
-    // this.searchBooks(this.state.searchValue)
+    // this.searchBooks(query) - maybe can make a dynamic query as we're typing?
   }
 
   getAutoCompleteSearchTerms() {
@@ -68,16 +75,19 @@ class Search extends Component {
   searchBooks(query) {
     if (query) {
       search(query).then((response) => {
-        if (!response.error) {
+        if (response.error) {
           this.setState({
-            results: response,
-            loading: false
-            }, () => {
-              console.log("Hello after loading", this.state.results)
-            }
-          ) // this.setState
+            errorMsg: `No Results found for "${query}." Please try your search again.`
+          }) 
+          return
         }
-      }) // search(query).then()
+        this.setState({
+          errorMsg: '',
+          results: response,
+          searching: false
+          }
+        )}
+      ) // search(query).then()
     }
   }
 
@@ -97,16 +107,11 @@ class Search extends Component {
     e.preventDefault()
     const query = this.queryRef.current.value 
     this.searchBooks(query)
-    // this.props.onSearch(query)
-  }
-
-  componentWillMount() {
-    this.searchBooks(this.props.query)
   }
   
   render() {
-    // if(!this.state.results) return <Loading />
     const { searchTerms, searchValue } = this.state
+    const urlQuery = this.props.location.pathname.substr(8)
 
     return (
       <div className="search">
@@ -119,7 +124,7 @@ class Search extends Component {
                 className="search-input"
                 ref={this.queryRef}
                 placeholder="Find a Book" 
-                value={this.props.query || searchValue}
+                value={searchValue || urlQuery}
                 onChange={this.handleChange}
                 onBlur={this.closeAutocomplete}
                 onFocus={this.openAutocomplete} 
@@ -128,9 +133,6 @@ class Search extends Component {
               {this.getAutoCompleteSearchTerms()}
 
             </form>
-            {!this.state.results && !this.props.query &&
-              <p>Available Search Terms</p>
-            }
           </div>
         </div>
 
@@ -138,27 +140,31 @@ class Search extends Component {
           <Loading />
         }
 
+        {this.state.errorMsg &&
+          <h6 className="center alert">{this.state.errorMsg}</h6>
+        }
+
         {this.state.results &&
           <div className="search-info animated bounceInUp container">
-
             <h6 className="center">Showing {this.state.results.length} Results for 
               <strong> "{this.queryRef.current.value || this.props.query}"</strong>
             </h6>
 
             <div className="search-results">
             <ul className="books-grid">
-                      {this.state.results.map((book) => (
-                        // <div key={book.id}>
-                        <li key={book.id}>
-                          <Book book={book}
-                                // subtitle={book.subtitle}
-                                // averageRating={book.averageRating}
-                                // ratingsCount={book.ratingsCount}
-                                // categories={book.categories} 
-                                onFavorited={() => this.toggleFavorite()}/>
-                        </li>
-                      ))}
-                    </ul>
+              {this.state.results.map((book) => (
+                // <div key={book.id}>
+                <li key={book.id}>
+                  <Book 
+                    book={book}
+                    // subtitle={book.subtitle}
+                    // averageRating={book.averageRating}
+                    // ratingsCount={book.ratingsCount}
+                    // categories={book.categories} 
+                    onFavorited={() => this.toggleFavorite()}/>
+                </li>
+              ))}
+            </ul>
             </div>
           </div>
         }
@@ -167,4 +173,4 @@ class Search extends Component {
   }
 }
  
-export default Search
+export default withRouter(Search)

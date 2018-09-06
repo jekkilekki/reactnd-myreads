@@ -44,17 +44,12 @@ class Book extends Component {
                   background: `url(${book.imageLinks.thumbnail})` 
                 }}></div>
           </a>
-          {/* <i className="book-favorite material-icons" 
-              onClick={() => this.favorite(book)}>star_border</i> */}
+
           <Favorite onClick={() => this.favorite(book)}/>
-          {/* <Dropdown trigger={
-            <i className="material-icons">arrow_drop_down_circle</i>
-          }>
-            Yes
-          </Dropdown> */}
+          
           <ShelfSelect 
             book={book}
-            onChangeShelf={this.onChangeShelf} 
+            onChangeShelf={this.props.onChangeShelf} 
           />
         </div>
         <div className="book-info">

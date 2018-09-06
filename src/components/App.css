@@ -85,3 +85,25 @@ nav .search-icon {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+/*----------------------------------------------------
+# CSS Animations
+----------------------------------------------------*/
+.books-grid-enter {
+  transform: translateX(-120%);
+  transition: 0.5s;
+  padding: 0 !important;
+}
+
+.books-grid-enter.books-grid-enter-active {
+  transform: translateX(0);
+}
+
+.books-grid-exit {
+  transform: translateX(0);
+  transition: 0.5s;
+}
+.books-grid-exit.books-grid-exit-active {
+  transform: translate(-120%);
+  padding: 0;
+}

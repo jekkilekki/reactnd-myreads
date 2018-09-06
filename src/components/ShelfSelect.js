@@ -64,7 +64,7 @@ class ShelfSelect extends Component {
               key={i} 
               className={option.className}
               value={option.value}
-              onClick={(e) => this.changeShelf(e, book, option.value)}
+              onClick={() => this.props.onChangeShelf(book, option.value)}
             >{option.name}</li>
           ))}
         </ul>

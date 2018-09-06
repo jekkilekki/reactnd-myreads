@@ -22,13 +22,10 @@ class BookDetails extends Component {
         header={book.title}
         actions={
           <div className="">
-            <a href={`https://books.google.com/books?op=lookup&id=${book.id}`} 
-                className="waves-effect waves-teal center">
-              <BookRating link={book.previewLink} />
-              <div className="book-rating-link">
-                Rate this book
-              </div>
-            </a>
+            <BookRating link={book.previewLink} />
+            <div className="book-rating-link">
+              Rate this book
+            </div>
             <i className="modal-close material-icons">close</i>
           </div>
         }
