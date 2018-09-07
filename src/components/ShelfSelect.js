@@ -46,7 +46,7 @@ class ShelfSelect extends Component {
       {
         value: "none",
         name: "None",
-        className: ""
+        className: book.shelf === "none" ? "disabled" : ""
       }
     ]
 

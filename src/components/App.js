@@ -6,6 +6,7 @@ import BookShelf from './BookShelf'
 import BookSingle from './BookSingle'
 import Search from './Search'
 import NotFound from './NotFound'
+import AppFooter from './AppFooter'
 import './App.css'
 
 class App extends Component {
@@ -24,7 +25,7 @@ class App extends Component {
     .catch((e) => console.log("There was an error retrieving Book data.", e))
   }
 
-  updateBook = (book, shelf) => {
+  changeShelf = (book, shelf) => {
     update( book, shelf )
       .then(() => {
         book.shelf = shelf
@@ -52,14 +53,25 @@ class App extends Component {
           <Navigation />
           <Switch>
             <Route exact path="/" render={() => (
-              <BookShelf books={books} onUpdateBook={this.updateBook} loading={loading} />
+              <BookShelf books={books} onChangeShelf={this.changeShelf} loading={loading} />
             )} />
-            <Route exact path="/book/:id" component={BookSingle} />
+            <Route exact path="/book/:id" render={() => (
+              <BookSingle onChangeShelf={this.changeShelf} />
+            )} />
             <Redirect from='/book' to={{ pathname: '/search', state: { book: 'none' }}} />
             <Redirect from='/books' to={{ pathname: '/search', state: { book: 'none' }}} />
-            <Route exact path="/search" render={() => (
-              <Search books={books} onUpdateBook={this.updateBook} />
-            )} />
+            {/* <Route exact path="/search" render={(props) => {
+              if ( typeof props.location.state !== 'undefined' ) {
+                console.log( "Props on search yo: ", props )
+                props.history.push('/search')
+              }
+              return (
+                <Search books={books} onUpdateBook={this.updateBook} newSearch={true} />
+              )
+            }} /> */}
+            <Route exact path='/search' component={(props) => (
+              <Search timestamp={new Date().toString()} books={books} onChangeShelf={this.changeShelf} {...props} />
+            )}/>
             <Route path="/search/:query" render={(props) => (
               <Redirect to={{
                 pathname: '/search',
@@ -70,6 +82,7 @@ class App extends Component {
             )} />
             <Route component={NotFound} />
           </Switch>
+          {/* <AppFooter /> */}
         </main>
       </BrowserRouter>
     )

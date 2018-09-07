@@ -68,6 +68,10 @@ nav .search-icon {
   display: none;
 }
 
+.search #search-autocomplete.container {
+  padding-bottom: 0;
+}
+
 .search .search-autocomplete-term {
   padding: 15px 25px;
   text-align: left;
@@ -90,20 +94,40 @@ nav .search-icon {
 # CSS Animations
 ----------------------------------------------------*/
 .books-grid-enter {
-  transform: translateX(-120%);
+  opacity: 0;
+  transform: scale3d(0.3, 0.3, 0.3);
   transition: 0.5s;
-  padding: 0 !important;
 }
 
 .books-grid-enter.books-grid-enter-active {
-  transform: translateX(0);
+  opacity: 1;
+  transform: scale3d(1, 1, 1);
 }
 
 .books-grid-exit {
-  transform: translateX(0);
+  opacity: 1;
+  transform: scale3d(1, 1, 1);
   transition: 0.5s;
 }
 .books-grid-exit.books-grid-exit-active {
-  transform: translate(-120%);
-  padding: 0;
+  transform: scale3d(0.3, 0.3, 0.3);
+  opacity: 0;
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.zoomOut {
+  animation-name: zoomOut;
 }

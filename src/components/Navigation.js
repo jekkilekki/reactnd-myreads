@@ -8,11 +8,12 @@ class Navigation extends Component {
   }
 
   render() {
-    const { match, location, history } = this.props
-    console.log( 'Navigation: ', location )
+    const { location } = this.props
+    console.log( 'Navigation: ', this.props )
 
     // const navbarClass = this.props.search === false ? 'teal' : 'white'
     const navbarClass = 'teal'
+
     return (
       <header className="app-header">
         <div className="main-navigation navbar-fixed">
@@ -41,4 +42,3 @@ class Navigation extends Component {
 }
  
 export default withRouter(Navigation)
-// export default Navigation

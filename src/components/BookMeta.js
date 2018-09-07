@@ -1,6 +1,5 @@
 import React from 'react'
 import BookRating from './BookRating'
-import ShelfSelect from './ShelfSelect'
 
 const BookMeta = (props) => {
   const { book } = props
@@ -27,9 +26,15 @@ const BookMeta = (props) => {
           style={{
             width: 128,
             height: 180,
+            position: 'relative',
             background: `url(${book.imageLinks.thumbnail})`
           }}
-        ></div>
+        >
+        {Object.keys(book).includes('maturityRating') && book.maturityRating.toLowerCase() === 'mature' &&
+            <span className="badge new mature" data-badge-caption="M" title="Mature rating"></span>
+          }
+        
+        </div>
         <span className="new badge" data-badge-caption={bookshelfStatus}></span>
       </header>
 
@@ -68,20 +73,12 @@ const BookMeta = (props) => {
         { book.categories && 
           <div className="book-categories">{
             book.categories.map((category, i, arr) => (
-              arr.length - 1 === i ? 
-                <span key={i}>{category}</span> : 
-                <span key={i}>{category}, </span>
+              arr.length - 1 === i 
+                ? <span key={i}>{category}</span> 
+                : <span key={i}>{category}, </span>
             ))
           }</div>
         }
-
-        <footer className="book-info-footer">
-          <a className="book-preview waves-effect waves-light btn" 
-            href={book.previewLink}>View</a>
-          <i className="book-favorite material-icons">star_border</i>
-          <ShelfSelect book={book} />
-          <span className="book-shelf-changer-text">Move to...</span>
-        </footer>
       </div>
     </div>
   )

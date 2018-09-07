@@ -9,9 +9,9 @@ class Search extends Component {
   queryRef = React.createRef()
 
   state = {
-    searching: true,
+    searching: this.props.newSearch,
     searchOpen: false,
-    searchValue: this.props.location.state.query || '',
+    searchValue: '',
     searchTerms: [],
     results: null,
     errorMsg: ''
@@ -20,8 +20,11 @@ class Search extends Component {
   componentDidMount() {
     const { location } = this.props
 
-    if ( location.state.query ) {
+    if ( typeof location.state !== 'undefined' ) {
       this.searchBooks( location.state.query )
+      this.setState({
+        searchValue: location.state.query
+      })
     }
 
     Papa.parse("../SEARCH_TERMS.csv", {
@@ -37,25 +40,30 @@ class Search extends Component {
     })
   }
 
+  // componentWillMount() {
+  //   if (this.props.location.state && this.props.location.state.query) {
+  //     this.query = this.props.location.state.query
+  //     this.props.history.replace({
+  //       pathname: this.props.location.pathname,
+  //       state: {}
+  //     })
+  //   }
+  // }
+
   handleChange = (e) => {
     const query = e.target.value
-    alert(e)
-    this.setState((prevState) => {
-      return {
-        searchValue: query,
-        searchTerms: prevState.searchTerms.filter((term) => {
-          term.startsWith(query)
-        })
-      }
+    this.setState({
+      searchValue: query
     })
-    // this.searchBooks(query) - maybe can make a dynamic query as we're typing?
   }
 
   getAutoCompleteSearchTerms() {
     const { searchTerms } = this.state
     return (
       <ul className="container" id="search-autocomplete">
-        {searchTerms.map((term) => (
+        {searchTerms
+        .filter((term) => (this.state.searchValue === '' || term.toLowerCase().includes(this.state.searchValue)))
+        .map((term) => (
           <li 
             key={term} 
             id={term}
@@ -67,14 +75,14 @@ class Search extends Component {
     )
   }
 
-  onSearch() {
-    this.setState(prevState => ({
-      searchOpen: !prevState.searchOpen
-    }))
-  }
+  // onSearch() {
+  //   this.setState(prevState => ({
+  //     searchOpen: !prevState.searchOpen
+  //   }))
+  // }
 
   searchBooks(query) {
-    if (query) {
+
       search(query).then((response) => {
         if (response.error) {
           this.setState({
@@ -83,13 +91,14 @@ class Search extends Component {
           return
         }
         this.setState({
+          searching: false,
           errorMsg: '',
+          searchValue: '',
           results: response,
-          searching: false
           }
         )}
-      ) // search(query).then()
-    }
+      )
+
   }
 
   openAutocomplete = () => {
@@ -97,9 +106,12 @@ class Search extends Component {
   }
 
   closeAutocomplete = () => {
-    setTimeout(() => {
-      document.getElementById("search-autocomplete").style.display = "none"
-    }, 50)
+    const { location } = this.props
+    if ( location.pathname === '/search' ) {
+      setTimeout(() => {
+        document.getElementById("search-autocomplete").style.display = "none"
+      }, 200)
+    }
   }
 
   selectSearchTerm = (e) => {
@@ -117,7 +129,9 @@ class Search extends Component {
   }
   
   render() {
-    const { searchTerms, searchValue } = this.state
+    const { searchValue } = this.state
+
+    console.log("Are you searching? ", this.state.searching )
 
     return (
       <div className="search">
@@ -125,6 +139,7 @@ class Search extends Component {
           <div className="container">
             <form onSubmit={this.submitForm}>
               <input 
+                autoComplete="off"
                 type="text" 
                 name="query"
                 className="search-input"
@@ -150,7 +165,9 @@ class Search extends Component {
           <h6 className="center alert">{this.state.errorMsg}</h6>
         }
 
-        {this.state.results &&
+        {this.state.results && 
+        ! this.state.errorMsg && 
+        ! this.state.searching &&
           <div className="search-info animated bounceInUp container">
             <h6 className="center">Showing {this.state.results.length} Results for 
               <strong> "{this.queryRef.current.value || this.props.query}"</strong>
@@ -167,7 +184,9 @@ class Search extends Component {
                     // averageRating={book.averageRating}
                     // ratingsCount={book.ratingsCount}
                     // categories={book.categories} 
-                    onFavorited={() => this.toggleFavorite()}/>
+                    onFavorited={() => this.toggleFavorite()}
+                    onChangeShelf={this.onChangeShelf}
+                  />
                 </li>
               ))}
             </ul>

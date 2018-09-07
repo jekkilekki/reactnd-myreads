@@ -43,6 +43,7 @@ class BookDetails extends Component {
             }
           </div>
 
+          { Object.keys(book).includes( 'imageLinks' ) &&
           <div className="book-cover" 
               style={{
                 width: 128,
@@ -50,6 +51,14 @@ class BookDetails extends Component {
                 background: `url(${book.imageLinks.thumbnail})`
               }}
           ></div>
+          }
+          { ! Object.keys(book).includes('imageLinks') && 
+            <div className="book-cover unavailable"></div>
+            }
+
+          {Object.keys(book).includes('maturityRating') && book.maturityRating.toLowerCase() === 'mature' &&
+            <span className="badge new mature" data-badge-caption="M" title="Mature rating"></span>
+          }
 
           <div className="book-info">
             {book.authors && 
@@ -72,13 +81,18 @@ class BookDetails extends Component {
                 <span>{book.publishedDate}</span>
               }
             </div>
-            {/* 
-            Astronomy = no ISBN, something has no image
-            {book.industryIdentifiers !== undefined &&
+            
+            {/* Astronomy = no ISBN, something has no image */}
+            { Object.keys(book).includes( 'industryIdentifiers' ) &&
             <div className="book-isbn">
-              ISBN: <span className="isbn-13">{book.industryIdentifiers[0].identifier}</span>, <span className="isbn-10">{book.industryIdentifiers[1].identifier}</span>
+              { book.industryIdentifiers.length > 1 &&
+                <p>ISBN: <span className="isbn-13">{book.industryIdentifiers[0].identifier}</span>, <span className="isbn-10">{book.industryIdentifiers[1].identifier}</span></p>
+              }
+              { book.industryIdentifiers.length === 1 &&
+                <p>{book.industryIdentifiers[0].identifier}</p>
+              }
             </div>
-            } */}
+            }
             <div className="book-pages">
               <span>{book.pageCount} pages</span>
             </div>
@@ -96,7 +110,9 @@ class BookDetails extends Component {
               <a className="book-preview waves-effect waves-light btn" 
                 href={book.previewLink}>View</a>
               <i className="book-favorite material-icons">star_border</i>
-              <ShelfSelect book={book} />
+
+              <ShelfSelect book={book} onChangeShelf={this.props.onChangeShelf}/>
+              
               <span className="book-shelf-changer-text">Move to...</span>
             </footer>
           </div>

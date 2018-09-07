@@ -196,11 +196,41 @@
   margin: 10px 0;
 }
 
+.book-cover.unavailable {
+  background-color: #90a4ae;
+  width: 140px;
+  height: 200px;
+}
+
+.book-cover.unavailable:after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-transform: uppercase;
+  content: "No book cover available";
+  font-weight: 100;
+  padding: 20px;
+}
+
 .book-cover.active,
 .book-cover:active,
 .book-cover:focus,
 .book-cover:hover {
   box-shadow: 0px 0px 15px #ee6e73;
+}
+
+span.badge.new.mature {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  margin: 0;
+  background-color: #455a64;
+  padding: 0;
+  min-width: 1.5rem;
 }
 
 .book-info {
@@ -264,9 +294,13 @@
 .book-single .book-info {
   text-align: left;
   padding-bottom: 5px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   margin-bottom: 20px; 
-  padding-left: 130px; 
+  padding-left: 150px; 
+}
+
+.book-single .book-info-footer {
+  padding-left: 150px;
 }
 
 .modal .book-rating,

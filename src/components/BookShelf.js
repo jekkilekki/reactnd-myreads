@@ -6,7 +6,7 @@ import './Book.css'
 
 class BookShelf extends Component {
   render() {
-    const { books, loading, onUpdateBook } = this.props
+    const { books, loading } = this.props
 
     const bookshelves = [
       {
@@ -28,17 +28,11 @@ class BookShelf extends Component {
 
     const transitionOptions = {
 			classNames: 'dashboard-list',
-			// key,
-			timeout: { enter: 500, exit: 500 }
+			timeout: { enter: 50000, exit: 50000 }
 		}
 
     return (
       <div className="app">
-        {/* <Button 
-          waves="light"
-          className="back-button center red lighten-2"
-          onClick={this.getData}
-        >Reset books</Button> */}
 
         { loading && <Loading /> }
 
@@ -66,7 +60,7 @@ class BookShelf extends Component {
                               ratingsCount={book.ratingsCount}
                               categories={book.categories} 
                               onFavorited={() => this.toggleFavorite()}
-                              onChangeShelf={this.props.onUpdateBook} 
+                              onChangeShelf={this.props.onChangeShelf} 
                             />
                           </li>
                           </CSSTransition>

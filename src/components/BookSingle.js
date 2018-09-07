@@ -4,6 +4,7 @@ import { get } from './BooksAPI'
 import Loading from './Loading'
 import BookMeta from './BookMeta'
 import BookRating from './BookRating'
+import ShelfSelect from './ShelfSelect'
 import './BookSingle.css'
 
 class BookSingle extends Component {
@@ -12,11 +13,11 @@ class BookSingle extends Component {
     loading: true
   }
 
-  getDate(string) {
-    var dateArray = string.split("-")
-    var date = new Date(dateArray.map((val) => val ))
-    return date.toString
-  }
+  // getDate(string) {
+  //   var dateArray = string.split("-")
+  //   var date = new Date(dateArray.map((val) => val ))
+  //   return date.toString
+  // }
   
   getBook(id) {
     get(id).then((response) => {
@@ -24,7 +25,7 @@ class BookSingle extends Component {
       this.setState({
         thisBook: response,
         loading: false
-      }, () => {console.log("Hello after loading", this.state.thisBook)})
+      })
     })
   }
 
@@ -59,7 +60,19 @@ class BookSingle extends Component {
         <p className="center bookshelf-status">You <span className="red-text">{bookStatus}</span> this book.</p>
         <header className="book-single-header grey darken-4 white-text">
           <div className="container">
-            <BookMeta book={thisBook} />  
+            <BookMeta 
+              book={thisBook} 
+            />  
+            <footer className="book-info-footer">
+              <a className="book-preview waves-effect waves-light btn" 
+                href={thisBook.previewLink}>View</a>
+              <i className="book-favorite material-icons">star_border</i>
+              <ShelfSelect 
+                book={thisBook} 
+                onChangeShelf={this.props.onChangeShelf}
+              />
+              <span className="book-shelf-changer-text">Move to...</span>
+            </footer>
           </div>
         </header>
 

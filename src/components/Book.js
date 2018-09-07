@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Dropdown, NavItem } from 'react-materialize'
 import BookModal from './BookModal'
 import ShelfSelect from './ShelfSelect'
 import Favorite from './Favorite'
@@ -15,19 +14,6 @@ class Book extends Component {
     this.props.onFavorited(book)
   }
 
-  dropDown(book) {
-    console.log("Dropping down")
-    // var dropdown = document.getElementById(`dropdown-${book.id}`)
-    // dropdown.material_select();
-  }
-
-  onChangeShelf = (book, shelf) => {
-    this.props.onChangeShelf(book, shelf)
-    this.setState({
-      shelf: shelf
-    })
-  }
-
   render() {
     const { book } = this.state
     const { subtitle, averageRating, ratingsCount, categories } = this.props
@@ -37,13 +23,24 @@ class Book extends Component {
 
         <div className="book-top">
           <a href={`/book/${book.id}`}>
+            { Object.keys(book).includes('imageLinks') &&
             <div className="book-cover hoverable" 
                 style={{ 
                   width: 140, 
                   height: 200, 
                   background: `url(${book.imageLinks.thumbnail})` 
-                }}></div>
+                }}
+            >
+            </div>
+            }
+            { ! Object.keys(book).includes('imageLinks') && 
+            <div className="book-cover unavailable"></div>
+            }
           </a>
+
+          {Object.keys(book).includes('maturityRating') && book.maturityRating.toLowerCase() === 'mature' &&
+            <span className="badge new mature" data-badge-caption="M" title="Mature rating"></span>
+          }
 
           <Favorite onClick={() => this.favorite(book)}/>
           
@@ -52,9 +49,9 @@ class Book extends Component {
             onChangeShelf={this.props.onChangeShelf} 
           />
         </div>
+
         <div className="book-info">
           <div className="book-title">{book.title}</div>
-
           {book.authors && 
             <div className="book-authors">
               {book.authors.map((author, i) => (
@@ -66,12 +63,14 @@ class Book extends Component {
               <span className="book-date">{book.publishedDate.substr(0,4)}</span>
             } 
         </div>
+
         <BookModal 
           book={book}
           subtitle={subtitle}
           averageRating={averageRating}
           ratingsCount={ratingsCount}
           categories={categories} 
+          onChangeShelf={this.props.onChangeShelf}
         />
       </div>
     )
