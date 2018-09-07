@@ -1,48 +1,40 @@
-# Would You Rather? React App
+# MyReads React App
 
-**Would You Rather?** is a React + Redux Polling App that utilizes the [Redux store](https://redux.js.org/basics/store)  to maintain application state. More details about the app's architecture can be found in the [Architecture](#architecture) section of this guide.
+**MyReads** is a simple React App that queries a books database to retrieve and display books on various bookshelves. More details about the app's architecture can be found in the [Architecture](#architecture) section of this guide.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).<br>
 It was built as part of Udacity's [React Nanodegree](https://www.udacity.com/course/react-nanodegree--nd019) program.
 
 ## Table of Contents
 
-- [Would You Rather? React App](#would-you-rather-react-app)
+- [MyReads React App](#myreads-react-app)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Installation](#installation)
   - [Application Functionality](#application-functionality)
     - [Home Page](#home-page)
-    - [Login Page](#login-page)
-    - [Dashboard](#dashboard)
-    - [Question Details](#question-details)
-      - [Answering Questions](#answering-questions)
-    - [Asking New Questions](#asking-new-questions)
-    - [Leaderboard](#leaderboard)
+    - [Search Page](#search-page)
+    - [Book Details](#book-details)
+      - [Book Modal](#book-modal)
+      - [Single Book Page](#single-book-page)
   - [Architecture](#architecture)
-    - [Folder Structure](#folder-structure)
-      - [`/src/actions`](#srcactions)
-      - [`/src/components`](#srccomponents)
-      - [`/src/middleware`](#srcmiddleware)
-        - [`thunk`](#thunk)
-      - [`/src/reducers`](#srcreducers)
-      - [`/src/utils`](#srcutils)
   - [Future Development](#future-development)
     - [Contributing](#contributing)
   - [License](#license)
   - [Changelog](#changelog)
-    - [`1.0.0` - 2018.09.02](#100---20180902)
+    - [`1.0.0` - 2018.09.07](#100---20180907)
 
 ## Overview
 
-In a nutshell, users are able to:
+In a nutshell:
 
-1. Login to the app as one of three default members
-2. Pre-defined questions are loaded from the "fake" Database (`_DATA.js`)
-3. Users may then navigate the Dashboard to view Answered, Unanswered, or user-created questions (Mine)
-4. They may answer questions or ask additional 
-questions
-5. The Leaderboard updates users' rank and score based on their activity in the app
+1. The App queries the Udacity database for initial data on the books and their shelves
+2. It loads these on the Home page and filters the books into their appropriate shelves
+3. Users may then:
+  1. Preview the books in a Modal
+  2. View book details on a Single Book page by clicking the book's cover
+  3. Reshelve the books by clicking the red dropdown arrow 
+  4. Search for new books on the Search page - where they can view book details or reshelve books in the same ways listed above
 
 More details about the app's functionality can be found in the [Application Functionality](#application-functionality) section of this guide.
 
@@ -51,7 +43,7 @@ More details about the app's functionality can be found in the [Application Func
 To install this app, simply open a command line application and clone this repository.
 
 ```
-git clone https://github.com/jekkilekki/reactnd-would-you-rather
+git clone https://github.com/jekkilekki/reactnd-myreads
 ```
 
 Navigate to the newly created directory and run the following commands to install dependencies and run the application.
@@ -68,203 +60,107 @@ For a more complete explanation of each available `npm` script and what it does,
 
 ## Application Functionality
 
-A top navigation bar controls access to all the pages in the app. On smaller screens, this is converted to a hamburger menu button and slide-in side navigation.
+The top navigation bar controls access to the Search page and the Home Page (by clicking on the "MyReads" logo, or the back arrow labeled "Bookshelf" from any page besides the Home Page. 
 
-There are two types of pages available to view:
+There are two types of Book Details "pages" to view:
 
-1. `Public` pages **are NOT** restricted to logged in users and are publicly accessible. These include the Home view and Login screen.
-2. `Private` pages **are** restricted to logged in users and are NOT publicly accessible. These include the Dashboard, individual Question Detail pages, the Add Question form, and the Leaderboard.
+1. The Book `Modal` is a "quick" pop-up preview of the book details available by clicking the teal "Preview" button below each book.
+2. The Book `Single` pages are accessed by clicking a book's cover image on the bookshelf, or typing a book ID into the URL bar in this manner: `localhost:3000/book/:id`.
 
 ### Home Page
 
-Page restriction: `public`
+The Home Page is the Bookshelves Page. It retrieves the initial book data from the Udacity database and filters books into their appropriate shelves. There are three bookshelves:
 
-The app's actual homepage (located at the root of the site) is publicly accessible and acts as a sort of `README` or site introduction page. 
+1. Reading (`currentlyReading`)
+2. To Read (`wantToRead`)
+3. Read (`read`)
 
-Without authenticating, users may move freely between the Home (root) page and the Login page.
+On the Home Page, users may interact with each book in the following manner:
 
-### Login Page
+1. Click the cover to view book details on its own Page
+2. Click the "Preview" button to view book details in a Modal popup
+3. Click the red dropdown arrow to reshelve the books
 
-Page restriction: `public`
+Functionality that has not yet been implemented is "Favoriting." The star in the upper right-hand corner of each book is intended to allow for this, but the functionality has not yet been implemented.
 
-If a user is not logged in and tries to navigate to any other page, the application will redirect to the login screen. Users can then select one of THREE users from a dropdown list and click the `Login` button to enter the app. 
+### Search Page
 
-Once a user successfully logs in, that user's name and picture are displayed in the upper-right hand corner of the top navigation menu. A `Logout` button is displayed beside the user's picture and will redirect to the Login page if a user logs out.
+The Search Page may be accessed and utilized in one of two ways:
 
-Without logging in to the app, none of the other app pages (minus the Home page) are visible. And if a user attempts to access a restricted page, the app will redirect to the Login screen for authentication before displaying that page.
+1. Click the Search icon (magnifying glass) in the top navigation bar and type your search query into the input field
+2. Type your search query directly into the URL field in the following manner: `localhost:3000/search/:query`
+  - (Note that this will redirect to the main Search Page at `localhost:3000/search` but it will query the database and display the results of your query as well)
 
-### Dashboard
+The input field on the Search Page includes an Autocomplete list of available search terms that filter as a user types. The search terms have been parsed from a Markdown file using [Papa Parse](https://www.papaparse.com/).
 
-Page restriction: `private`
+### Book Details
 
-The app's Dashboard is the true "heart" of the application. From here, users can view the asked questions in one of four views:
+Book details can be viewed in THREE ways:
 
-1. All questions
-2. Unanswered questions (default view)
-3. Answered questions
-4. Mine (user created questions)
+1. On the Home (Bookshelf) Page and the Search Page, the cover image, title, author(s), and publication year are all visible
+2. Click the book's cover image to view its details on its own Page
+3. Click the "Preview" button to view its details in a pop-up Modal
 
-Polls are arranged from most recently created (top) to least recently created (bottom).
+Each book's details contain various information and there are numerous "checks and balances" through the code to display the maximum amount of book information as possible. Specifically, there are checks for:
 
-### Question Details
+1. Missing book cover images
+2. Missing publication dates
+3. A "Mature" rating
+4. Single or multiple authors
+5. Single or multiple categories
+6. Whether or not there is a subtitle
+7. Whether or not there is a rating
+8. Whether or not there is a publisher
+9. Whether or not there is an ISBN or other idenifying number
 
-Page restriction: `private`
+#### Book Modal
 
-Each Question is linked to a Details page available at `/questions/:question_id`. There are two views available on a Question Details page:
+The Book Modal is accessible by pressing the teal "Preview" button underneath each book. It gives a "quick" preview popup of the book's details.
 
-1. **Unanswered Questions** display only the name and picture of the user who asked the question, the question itself (with two possible options displayed as buttons), and some meta information like the timestamp
-2. **Answered Questions** additionally display the user's choice, a distribution graph of the results (including vote totals and percentages), and a Vote distribution area that displays each user's picture who voted for each option
+#### Single Book Page
 
-#### Answering Questions
+The Single Book Page is accessible in one of two ways:
 
-A user may click an option to vote on a question on either the Dashboard page or the Question Details page only *once*. Once a question has been voted on, button clicks no longer have any effect.
-
-### Asking New Questions
-
-Page restriction: `private`
-
-Users may also create and ask new questions. This functionality is accessible at the `/add` route of the app. Users must fill in text for both Option One and Option Two before the `Ask Question` button is enabled.
-
-After a new question is created, the user is returned to the Unanswered questions view of the Dashboard where the newly created question slides in to the top of the list as the most recently created question.
-
-### Leaderboard
-
-Page restriction: `private`
-
-The Leaderboard is available at `/leaderboard`. Entries are updated whenever an action occurs in the app (like answering questions or creating new questions) and contain the following information:
-
-1. The user's rank (1st, 2nd, 3rd, etc)
-2. The user's name and picture (pictures are not displayed on smaller screens)
-3. Number of questions answered
-4. Number of questions asked
-5. Total score (questions answered + questions asked)
+1. Clicking the book's cover image on the Bookshelf or Search page
+2. Typing the book's ID into the URL address bar in the following manner: `localhost:3000/book/:id`
 
 ## Architecture
 
-**Would You Rather?** is a React + Redux app that takes full advantage of the [Redux store](https://redux.js.org/basics/store) to maintain React's state throughout the application. 
+**MyReads** is a simple React App that queries a books database to retrieve and display books on various bookshelves. It relies on built in React methods like `componentDidMount` and React Router's `withRouter` to provide its functionality.
 
-App updates are triggered by dispatching action creators to reducers which return updated  state information to the app. Components read the necessary state from the Redux store and there are no direct API calls in the components' lifecycle methods. State-based props are mapped from the store rather than stored as component state.
-
-### Folder Structure
-
-After cloning the GitHub repository, the project directory includes the following folders:
-
-```
-reactnd-would-you-rather/
-  node_modules/
-  public/
-  src/
-    actions/
-    components/
-    middleware/
-    reducers/
-    utils/
-```
-
-#### `/src/actions`
-
-From the [Redux.js](https://redux.js.org/basics/actions) site:
-
-> Actions are payloads of information that send data from your application to your store. They are the only source of information for the store. You send them to the store using `store.dispatch()`.<br><br>Actions are plain JavaScript objects. Actions must have a type property that indicates the type of action being performed. Types should typically be defined as string constants.
-
-This app's actions are contained within the following files and are self-explanatory:
-
-- `authedUser.js`
-  - `SET_AUTHED_USER`
-- `questions.js`
-  - `RECEIVE_QUESTIONS` (from the "fake" database `_DATA.js`)
-  - `ANSWER_QUESTION`
-  - `ADD_QUESTION`
-  - `DELETE_QUESTION` (work in progress)
-- `shared.js` (handles loading the initial app data)
-- `users.js`
-  - `RECEIVE_USERS` (from the "fake" database)
-
-#### `/src/components`
-
-All React components and component-specific CSS reside within the components folder. 
-
-#### `/src/middleware`
-
-From the [Redux.js](https://redux.js.org/advanced/middleware) site:
-
-> Middleware is some code you can put between the framework receiving a request, and the framework generating a response.
-
-The middleware applied in this app includes `thunk` and a `logger` which "logs" information on the state of the application to the browser console after Redux actions are dispatched.
-
-##### `thunk`
-
-From [Redux-thunk](https://github.com/reduxjs/redux-thunk) on GitHub:
-
-> Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods dispatch and getState as parameters.
-
-Applying `thunk` as a middleware in this app allows us to call `setTimeout()` on our dispatched actions in order to emulate the delayed response from a database controlled by a server. 
-
-Because this app uses a "fake" database, all the data is immediately available and application updates such as adding new questions would happen instantaneously if we didn't use `thunk`. 
-
-#### `/src/reducers`
-
-From the [Redux.js](https://redux.js.org/basics/reducers) site:
-
-> Reducers specify how the application's state changes in response to actions sent to the store. Remember that actions only describe what happened, but don't describe how the application's state changes.<br><br>In Redux, all the application state is stored as a single object. 
-
-There are two major "slices" of state that need to be maintained and updated by our reducers. These are the `users` and `questions` slices of state (`authedUser` is also maintained here but it has much less "work" to do as it only handles logging in or logging out).
-
-The following files contain the app's reducers which are combined in `index.js` with Redux's `combineReducers()` function:
-
-- `authedUser.js` (sets or resets the authenticated user id)
-- `index.js` (combines our reducers - including the React Redux Loading Bar)
-- `questions.js`
-- `users.js`
-
-Each of last two files, `questions.js` and `users.js` contain specific actions from their relevant `/actions` files (see above). 
-
-But `users.js` additionally includes the actions `ANSWER_QUESTION` and `ADD_QUESTION` from `/actions/questions.js` because `ANSWER_QUESTION` and `ADD_QUESTION` modify not only the `questions` slice of state, but also the `users` slice of state.
-
-#### `/src/utils`
-
-The following files are contained within the `/utils` folder:
-
-- `_DATA.js` (our "fake" database and default API calls)
-- `api.js` (API calls to get our initial data and save future data)
-- `helpers.js` (to properly format Questions and Date timestamps)
+The app is styled with `react-materialize` and [MaterializeCSS](https://materializecss.com/). CSS Transitions are (or will be) handled by `react-transition-group`. And the Loading animation is taken from Tobias Ahlin's [SpinKit](http://tobiasahlin.com/spinkit/).
 
 ## Future Development
 
 The following list are things I'm contemplating for future development:
 
-- Add screenshots to Home view and README
-- `DELETE_QUESTION` functionality
-  - For users to delete their own questions
-  - If an `admin` role is implemented, to delete any asked questions
-- Possible `admin` role
-- Saving and loading external data from [Firebase](https://firebase.google.com/)
-- Allowing new users to create accounts and sign-in with their own ids and passwords
-- Adding additional question options (OptionThree, OptionFour for example)
-- Linking Questions into specific pages to create Quizzes
+- Simplifying the code base and reusing as many Components as possible (specifically combining `BookModal.js` and `BookSingle.js` as they display nearly the same information).
+- Improving the CSS Animations when reshelving books:
+  - When a book leaves a shelf, it should shrink and disappear (zoom out)
+  - When a book enters a shelf, it should grow and appear (zoom in)
+- Improving Search functionality after a search query is entered into the URL and a subsequent search is attempted (a React Router refresh perhaps?)
+- Consider displaying the Bookshelves on the Home Page in a Carousel or Tabbed Menu, rather than one after the other on the page
+- Adding functionality for "Favoriting" a book (the star in the upper right-hand corner)
 
 ### Contributing
 
-The best way to Contribute to this app is to open an [Issue](https://github.com/jekkilekki/reactnd-would-you-rather/issues) on GitHub.<br>I likely will not spend much time looking at Pull Requests.
+The best way to Contribute to this app is to open an [Issue](https://github.com/jekkilekki/reactnd-myreads/issues) on GitHub.<br>I likely will not spend much time looking at Pull Requests.
 
 ## License
 
-The **Would You Rather?** app is licensed under the [MIT open source license](https://opensource.org/licenses/MIT) and built with React and Redux and uses the following third-party resources and `node` modules:
+The **MyReads** app is licensed under the [MIT open source license](https://opensource.org/licenses/MIT) and built with React and uses the following third-party resources and `node` modules:
 
 - [React](https://reactjs.org/)
 - [React Router](https://www.npmjs.com/package/react-router)
-- [Redux](https://redux.js.org/)
-- [Redux Thunk](https://www.npmjs.com/package/redux-thunk)
+- [Papa Parse](https://www.papaparse.com/)
+- [SpinKit](http://tobiasahlin.com/spinkit/)
 - [MaterializeCSS](https://materializecss.com/)
 - [React Materialize](https://www.npmjs.com/package/react-materialize)
-- [React Redux Loading](https://www.npmjs.com/package/react-redux-loading)
 - [React Transition Group](https://www.npmjs.com/package/react-transition-group)
 - Google Fonts
-  - [Noto Sans](https://fonts.google.com/specimen/Noto+Sans)
-  - [Caveat](https://fonts.google.com/specimen/Caveat)
   - [Material Icons](https://materializecss.com/icons.html) (as part of MaterializeCSS)
 
 ## Changelog
 
-### `1.0.0` - 2018.09.02 
+### `1.0.0` - 2018.09.07 
  - Initial release
