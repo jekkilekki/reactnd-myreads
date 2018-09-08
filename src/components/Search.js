@@ -173,7 +173,7 @@ class Search extends Component {
                     book={book}
                     onFavorited={() => this.toggleFavorite()}
                     onChangeShelf={this.props.onChangeShelf}
-                    currentShelf={true}
+                    onSearch={true}
                   />
                 </li>
               ))}

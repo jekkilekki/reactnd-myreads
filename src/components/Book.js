@@ -16,7 +16,7 @@ class Book extends Component {
 
   render() {
     const { book } = this.state
-    const { subtitle, averageRating, ratingsCount, categories, currentShelf } = this.props
+    const { subtitle, averageRating, ratingsCount, categories, onSearch } = this.props
 
     let thisShelf = ''
     switch( book.shelf ) {
@@ -66,7 +66,7 @@ class Book extends Component {
         </div>
 
         <div className="book-info">
-        { currentShelf && 
+        { onSearch && 
         <p>
           <span className="badge new show-shelf red lighten-2" data-badge-caption={thisShelf}>Shelf: </span>
         </p>
