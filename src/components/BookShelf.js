@@ -28,7 +28,7 @@ class BookShelf extends Component {
 
     const transitionOptions = {
 			classNames: 'dashboard-list',
-			timeout: { enter: 50000, exit: 50000 }
+			timeout: { enter: 500, exit: 0 }
 		}
 
     return (

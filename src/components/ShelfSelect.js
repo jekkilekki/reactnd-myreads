@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { update } from './BooksAPI'
 import './ShelfSelect.css'
 
@@ -18,10 +19,13 @@ class ShelfSelect extends Component {
     }
     update(book, shelf)
     // this.props.onChangeShelf(book, shelf)
+    this.props.history.push('/')
   }
 
   render() {
     const { book } = this.props
+
+    console.log( "Bookshelf: ", book.shelf )
 
     let shelfOptions = [{
         value: "currentlyReading",
@@ -46,14 +50,16 @@ class ShelfSelect extends Component {
       {
         value: "none",
         name: "None",
-        className: book.shelf === "none" ? "disabled" : ""
+        className: (book.shelf === "none" || typeof book.shelf === 'undefined') ? "disabled" : ""
       }
     ]
 
     return (
       <div 
         className="book-shelf-changer" 
-        onClick={this.toggleDropdown}
+        onMouseOver={this.toggleDropdown}
+        onMouseOut={this.toggleDropdown}
+        // onClick={this.toggleDropdown}
       >
         <ul 
           id={`dropdown-${book.id}`} 
@@ -73,4 +79,4 @@ class ShelfSelect extends Component {
   }
 }
  
-export default ShelfSelect
+export default withRouter(ShelfSelect)

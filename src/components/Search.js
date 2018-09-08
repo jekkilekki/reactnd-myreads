@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
 import { search } from './BooksAPI'
 import Papa from 'papaparse'
 import Loading from './Loading'
@@ -40,21 +39,12 @@ class Search extends Component {
     })
   }
 
-  // componentWillMount() {
-  //   if (this.props.location.state && this.props.location.state.query) {
-  //     this.query = this.props.location.state.query
-  //     this.props.history.replace({
-  //       pathname: this.props.location.pathname,
-  //       state: {}
-  //     })
-  //   }
-  // }
-
   handleChange = (e) => {
     const query = e.target.value
     this.setState({
       searchValue: query
     })
+    this.searchBooks(query)
   }
 
   getAutoCompleteSearchTerms() {
@@ -75,30 +65,32 @@ class Search extends Component {
     )
   }
 
-  // onSearch() {
-  //   this.setState(prevState => ({
-  //     searchOpen: !prevState.searchOpen
-  //   }))
-  // }
-
   searchBooks(query) {
-
-      search(query).then((response) => {
-        if (response.error) {
-          this.setState({
-            errorMsg: `No Results found for "${query}." Please try your search again.`
-          }) 
-          return
-        }
+    search(query).then((response) => {
+      if (typeof response === 'undefined') {
         this.setState({
-          searching: false,
-          errorMsg: '',
-          searchValue: '',
-          results: response,
-          }
-        )}
-      )
-
+          errorMsg: 'Please enter your search terms in the input field above.'
+        })
+        return
+      } else if(response.error) {
+        this.setState({
+          errorMsg: `No Results found for "${query}." Please try your search again.`
+        }) 
+        return
+      }
+      response.map((book) => {
+        return this.props.books.filter((b) => {
+          return b.id === book.id
+        }).map((b) => {
+          return book.shelf = b.shelf
+        })
+      })
+      this.setState({
+        searching: false,
+        errorMsg: '',
+        results: response,
+      })
+    })
   }
 
   openAutocomplete = () => {
@@ -165,9 +157,9 @@ class Search extends Component {
           <h6 className="center alert">{this.state.errorMsg}</h6>
         }
 
-        {this.state.results && 
+        { this.state.results && 
         ! this.state.errorMsg && 
-        ! this.state.searching &&
+        ! this.state.searchValue !== '' &&
           <div className="search-info animated bounceInUp container">
             <h6 className="center">Showing {this.state.results.length} Results for 
               <strong> "{this.queryRef.current.value || this.props.query}"</strong>
@@ -176,16 +168,12 @@ class Search extends Component {
             <div className="search-results">
             <ul className="books-grid">
               {this.state.results.map((book) => (
-                // <div key={book.id}>
                 <li key={book.id}>
                   <Book 
                     book={book}
-                    // subtitle={book.subtitle}
-                    // averageRating={book.averageRating}
-                    // ratingsCount={book.ratingsCount}
-                    // categories={book.categories} 
                     onFavorited={() => this.toggleFavorite()}
-                    onChangeShelf={this.onChangeShelf}
+                    onChangeShelf={this.props.onChangeShelf}
+                    currentShelf={true}
                   />
                 </li>
               ))}
@@ -198,4 +186,4 @@ class Search extends Component {
   }
 }
  
-export default withRouter(Search)
+export default Search

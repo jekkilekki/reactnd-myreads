@@ -16,7 +16,22 @@ class Book extends Component {
 
   render() {
     const { book } = this.state
-    const { subtitle, averageRating, ratingsCount, categories } = this.props
+    const { subtitle, averageRating, ratingsCount, categories, currentShelf } = this.props
+
+    let thisShelf = ''
+    switch( book.shelf ) {
+      case 'currentlyReading':
+        thisShelf = 'Currently Reading'
+        break
+      case 'wantToRead':
+        thisShelf = 'Want to Read'
+        break
+      case 'read':
+        thisShelf = 'Read'
+        break 
+      default:
+        thisShelf = 'None'
+    }
 
     return (
       <div id={`book-${book.id}`} className="book" >
@@ -51,6 +66,11 @@ class Book extends Component {
         </div>
 
         <div className="book-info">
+        { currentShelf && 
+        <p>
+          <span className="badge new show-shelf red lighten-2" data-badge-caption={thisShelf}>Shelf: </span>
+        </p>
+        }
           <div className="book-title">{book.title}</div>
           {book.authors && 
             <div className="book-authors">

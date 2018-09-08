@@ -12,12 +12,6 @@ class BookSingle extends Component {
     thisBook: null,
     loading: true
   }
-
-  // getDate(string) {
-  //   var dateArray = string.split("-")
-  //   var date = new Date(dateArray.map((val) => val ))
-  //   return date.toString
-  // }
   
   getBook(id) {
     get(id).then((response) => {
