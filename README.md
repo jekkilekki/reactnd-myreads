@@ -62,7 +62,7 @@ For a more complete explanation of each available `npm` script and what it does,
 
 ### Build
 
-To build the application and serve it on the website, the following changes were made to the original `dev` folder and files (i.e. revert them to get back to `dev` mode).
+To build the application and serve it on the website, the following changes need to be made to serve the app from a subfolder.
 
 #### `package.json`
 
@@ -83,6 +83,8 @@ In `app.js`, modify the `<BrowserRouter>` component to take the subfolder as a `
 #### `npm run build`
 
 This script is included with the default `react-scripts` when first running `create-react-app`. It minifies the CSS and JS and bundles all the files into a `/build` folder for easy upload. 
+
+#### Upload to Dreamhost
 
 For Dreamhost, just upload everything output from the `/build` folder and you're good to go. (Change the `favicon` too if you want.) Just remember to run this command __*every time*__ you want to update the app online.
 
@@ -189,6 +191,10 @@ The **MyReads** app is licensed under the [MIT open source license](https://open
   - [Material Icons](https://materializecss.com/icons.html) (as part of MaterializeCSS)
 
 ## Changelog
+
+### `1.0.1` - 2018.11.11
+ - Fix `Book.js` to use BrowserRouter's `Link` component instead of HTML anchors
+ - Build for deployment (see [`build` branch](https://github.com/jekkilekki/reactnd-myreads/tree/build))
 
 ### `1.0.0` - 2018.09.07 
  - Initial release
