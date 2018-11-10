@@ -11,6 +11,7 @@ It was built as part of Udacity's [React Nanodegree](https://www.udacity.com/cou
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Installation](#installation)
+    - [Build](#build)
   - [Application Functionality](#application-functionality)
     - [Home Page](#home-page)
     - [Search Page](#search-page)
@@ -22,6 +23,7 @@ It was built as part of Udacity's [React Nanodegree](https://www.udacity.com/cou
     - [Contributing](#contributing)
   - [License](#license)
   - [Changelog](#changelog)
+    - [`1.0.1` - 2018.11.11](#101---20181111)
     - [`1.0.0` - 2018.09.07](#100---20180907)
 
 ## Overview
@@ -57,6 +59,32 @@ npm start
 The application should then automatically load in your browser at [http://localhost:3000](http://localhost:3000)
 
 For a more complete explanation of each available `npm` script and what it does, see the Create React App's [README file](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#available-scripts).
+
+### Build
+
+To build the application and serve it on the website, the following changes were made to the original `dev` folder and files (i.e. revert them to get back to `dev` mode).
+
+#### `package.json`
+
+Added the following line to run this app from a subfolder:
+
+```
+"homepage": "http://website.com/subfolder"
+```
+
+#### `app.js`
+
+In `app.js`, modify the `<BrowserRouter>` component to take the subfolder as a `basename` prop:
+
+```
+<BrowserRouter basename='/subfolder'>
+```
+
+#### `npm run build`
+
+This script is included with the default `react-scripts` when first running `create-react-app`. It minifies the CSS and JS and bundles all the files into a `/build` folder for easy upload. 
+
+For Dreamhost, just upload everything output from the `/build` folder and you're good to go. (Change the `favicon` too if you want.) Just remember to run this command __*every time*__ you want to update the app online.
 
 ## Application Functionality
 

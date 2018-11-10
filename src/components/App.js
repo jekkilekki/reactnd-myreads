@@ -48,7 +48,7 @@ class App extends Component {
     const { books, loading } = this.state
 
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/labs/myreads">
         <main className='app app-container'>
           <Navigation />
           <Switch>

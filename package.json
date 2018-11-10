@@ -2,6 +2,7 @@
   "name": "myreads",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://jekkilekki.com/labs/myreads",
   "devDependencies": {
     "react-scripts": "1.1.4",
     "@storybook/react": "^3.4.7",
