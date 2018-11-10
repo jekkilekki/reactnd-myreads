@@ -1,5 +1,7 @@
 # MyReads React App
 
+[View online](https://jekkilekki.com/labs/myreads)
+
 **MyReads** is a simple React App that queries a books database to retrieve and display books on various bookshelves. More details about the app's architecture can be found in the [Architecture](#architecture) section of this guide.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).<br>
