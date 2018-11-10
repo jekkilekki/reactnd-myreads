@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import BookModal from './BookModal'
 import ShelfSelect from './ShelfSelect'
 import Favorite from './Favorite'
@@ -37,7 +38,7 @@ class Book extends Component {
       <div id={`book-${book.id}`} className="book" >
 
         <div className="book-top">
-          <a href={`/book/${book.id}`}>
+          <Link to={`/book/${book.id}`}>
             { Object.keys(book).includes('imageLinks') &&
             <div className="book-cover hoverable" 
                 style={{ 
@@ -51,7 +52,7 @@ class Book extends Component {
             { ! Object.keys(book).includes('imageLinks') && 
             <div className="book-cover unavailable"></div>
             }
-          </a>
+          </Link>
 
           {Object.keys(book).includes('maturityRating') && book.maturityRating.toLowerCase() === 'mature' &&
             <span className="badge new mature" data-badge-caption="M" title="Mature rating"></span>
